@@ -85,7 +85,7 @@
                         </AnchorPane>
                     </content>
                   </TitledPane>
-                  <TitledPane animated="false" text="Navigation">
+                  <TitledPane text="Navigation">
                     <content>
                       <AnchorPane minHeight="105.0">
                            <children>
