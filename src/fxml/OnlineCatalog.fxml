@@ -5,18 +5,18 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ListView layoutX="50.0" layoutY="50.0" prefHeight="300.0" prefWidth="200.0" />
-      <ListView layoutX="350.0" layoutY="50.0" prefHeight="300.0" prefWidth="200.0" />
-      <Button layoutX="280.0" layoutY="100.0" mnemonicParsing="false" text="&gt;&gt;&gt;" />
-      <Button layoutX="280.0" layoutY="149.0" mnemonicParsing="false" text="&lt;&lt;&lt;" />
-      <Button layoutX="265.0" layoutY="200.0" mnemonicParsing="false" text="Download" />
-      <ProgressIndicator layoutX="287.0" layoutY="245.0" progress="0.0" />
       <Text layoutX="111.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Online Catalog" />
-      <Text layoutX="388.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Files to be Downloaded" />
-      <Button layoutX="272.0" layoutY="298.0" mnemonicParsing="false" text="Catalog" />
+      <ListView layoutX="50.0" layoutY="50.0" prefHeight="300.0" prefWidth="200.0" />
       <Button layoutX="262.0" layoutY="50.0" mnemonicParsing="false" text="Main Menu" />
+      <Button layoutX="279.0" layoutY="130.0" mnemonicParsing="false" text="&lt;&lt;&lt;" />
+      <Button layoutX="279.0" layoutY="90.0" mnemonicParsing="false" text="&gt;&gt;&gt;" />
+      <Button layoutX="264.0" layoutY="169.0" mnemonicParsing="false" text="Download" />
+      <ProgressIndicator layoutX="284.0" layoutY="215.0" progress="0.0" />
+      <Button layoutX="255.0" layoutY="325.0" mnemonicParsing="false" text="Local Catalog" />
+      <Text layoutX="388.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Files to be Downloaded" />
+      <ListView layoutX="350.0" layoutY="50.0" prefHeight="300.0" prefWidth="200.0" />
+      <TextArea editable="false" layoutX="255.0" layoutY="255.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="63.0" prefWidth="87.0" wrapText="true" />
    </children>
 </Pane>

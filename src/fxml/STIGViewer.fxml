@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <SplitPane dividerPositions="0.0, 0.5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+            <VBox alignment="TOP_CENTER">
+               <children>
+                  <TitledPane text="Rule Severity Distribution" VBox.vgrow="ALWAYS">
+                    <content>
+                      <AnchorPane maxHeight="250.0" maxWidth="250.0" minHeight="0.0" minWidth="0.0">
+                           <children>
+                              <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <PieChart fx:id="RuleSeverityChart" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+                  <TitledPane text="Filter" VBox.vgrow="ALWAYS">
+                    <content>
+                      <AnchorPane>
+                           <children>
+                              <VBox alignment="TOP_CENTER" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <AnchorPane>
+                                       <children>
+                                          <ChoiceBox fx:id="FilterField" prefHeight="19.0" prefWidth="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                          <Button mnemonicParsing="false" onAction="#AddFilter" text="Add Filter" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                          <TextField fx:id="FilterTextField" prefHeight="25.0" prefWidth="126.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="83.0" AnchorPane.topAnchor="10.0" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets bottom="5.0" />
+                                       </padding>
+                                    </AnchorPane>
+                                    <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="140.0">
+                                       <children>
+                                          <RadioButton fx:id="ContainsButton" mnemonicParsing="false" text="Contains" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="MatchType" />
+                                             </toggleGroup>
+                                          </RadioButton>
+                                          <RadioButton fx:id="MatchButton" mnemonicParsing="false" text="Matches" toggleGroup="$MatchType" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" />
+                                       </padding>
+                                    </AnchorPane>
+                                    <AnchorPane>
+                                       <children>
+                                          <TableView fx:id="FilterTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <columns>
+                                                <TableColumn fx:id="FilterFieldColumn" editable="false" prefWidth="75.0" text="Filter Field" />
+                                                <TableColumn fx:id="FilterTypeColumn" editable="false" prefWidth="75.0" text="Filter Type" />
+                                                <TableColumn fx:id="FilterTextColumn" editable="false" prefWidth="75.0" text="Filter Text" />
+                                             </columns>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                    <Button mnemonicParsing="false" onAction="#DeleteFilter" text="Delete Filter">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" top="10.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+                  <TitledPane animated="false" text="Navigation">
+                    <content>
+                      <AnchorPane minHeight="105.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#GoToMainMenu" text="Main Menu" textAlignment="CENTER">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" />
+                                       </VBox.margin></Button>
+                                    <Button mnemonicParsing="false" onAction="#GoToOnlineCatalog" text="Online Catalog" textAlignment="CENTER">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#GoToLocalCatalog" text="Local Catalog" textAlignment="CENTER" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" minWidth="100.0">
+               <children>
+                  <Label text="STIG Rules" VBox.vgrow="ALWAYS" />
+                  <AnchorPane VBox.vgrow="ALWAYS">
+                     <children>
+                        <TableView fx:id="STIGRuleTable" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <columns>
+                              <TableColumn fx:id="VulnIDColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="Vul ID" />
+                              <TableColumn fx:id="STIGIDColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="STIG ID" />
+                              <TableColumn fx:id="RuleIDColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="Rule ID" visible="false" />
+                              <TableColumn fx:id="RuleNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="Rule Name" visible="false" />
+                           </columns>
+                        </TableView>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </AnchorPane>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER">
+               <children>
+                  <Label text="STIG Rule Content" />
+                  <SplitPane dividerPositions="0.413" orientation="VERTICAL" VBox.vgrow="ALWAYS">
+                     <items>
+                        <TextArea fx:id="STIGRuleHeader" editable="false" text="&#10;&#10;Lorem ipsum dolor sit amet, consectetur adipiscing elit,&#10; sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. &#10;Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris &#10;nisi ut aliquip ex ea commodo consequat. &#10;Duis aute irure dolor in reprehenderit in voluptate velit&#10; esse cillum dolore eu fugiat nulla pariatur. &#10;Excepteur sint occaecat cupidatat non proident, &#10;sunt in culpa qui officia deserunt mollit anim id est laborum." wrapText="true" />
+                        <TextArea fx:id="STIGRuleContent" editable="false" text="&#10;&#10;Lorem ipsum dolor sit amet, consectetur adipiscing elit,&#10; sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. &#10;Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris &#10;nisi ut aliquip ex ea commodo consequat. &#10;Duis aute irure dolor in reprehenderit in voluptate velit&#10; esse cillum dolore eu fugiat nulla pariatur. &#10;Excepteur sint occaecat cupidatat non proident, &#10;sunt in culpa qui officia deserunt mollit anim id est laborum." wrapText="true" />
+                     </items>
+                  </SplitPane>
+               </children>
+            </VBox>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
