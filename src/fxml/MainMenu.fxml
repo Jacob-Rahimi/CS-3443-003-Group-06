@@ -7,24 +7,29 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainMenuController">
    <children>
-      <Text layoutX="166.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Command Cyber">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Text>
-      <Text layoutX="178.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Open STIG v1.0">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Text>
-      <Button layoutX="252.0" layoutY="173.0" mnemonicParsing="false" text="Online Catalog" />
-      <Text layoutX="165.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Connection status to https://public.cyber.mil/stigs/" />
-      <Text layoutX="240.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Server is available" />
-      <Circle fill="#1fff66" layoutX="345.0" layoutY="226.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
-      <Button layoutX="256.0" layoutY="246.0" mnemonicParsing="false" text="Local Catalog" />
-      <Button layoutX="270.0" layoutY="286.0" mnemonicParsing="false" text="Settings" />
-      <Button layoutX="274.0" layoutY="325.0" mnemonicParsing="false" text="About" />
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Text layoutX="166.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Command Cyber">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Text>
+            <Text layoutX="178.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Open STIG v1.0">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Text>
+            <Button layoutX="252.0" layoutY="173.0" mnemonicParsing="false" onAction="#GoToOnlineCatalog" text="Online Catalog" />
+            <Text fx:id="ConnectionStatusLabel" layoutX="165.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Connection status to https://public.cyber.mil/stigs/" />
+            <Text fx:id="ConnectionStatus" layoutX="240.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Server is available" />
+            <Circle fx:id="StatusIcon" fill="#1fff66" layoutX="345.0" layoutY="226.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+            <Button layoutX="256.0" layoutY="246.0" mnemonicParsing="false" onAction="#GoToLocalCatalog" text="Local Catalog" />
+            <Button layoutX="270.0" layoutY="286.0" mnemonicParsing="false" onAction="#PromptSettings" text="Settings" />
+            <Button layoutX="274.0" layoutY="325.0" mnemonicParsing="false" onAction="#PromptAbout" text="About" />
+         </children>
+      </Pane>
    </children>
-</Pane>
+</AnchorPane>

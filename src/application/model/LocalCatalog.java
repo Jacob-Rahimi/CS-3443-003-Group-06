@@ -1,5 +1,7 @@
 package application.model;
 
-public class LocalCatalog {
+import java.io.File;
 
+public class LocalCatalog {
+	File catalogLocation = new File("src/data");
 }

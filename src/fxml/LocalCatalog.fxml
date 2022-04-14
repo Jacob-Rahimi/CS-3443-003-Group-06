@@ -5,13 +5,17 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.LocalCatalogController">
    <children>
-      <ListView layoutX="50.0" layoutY="50.0" prefHeight="300.0" prefWidth="500.0" />
-      <Text layoutX="264.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Local Catalog" />
-      <Button layoutX="259.0" layoutY="350.0" mnemonicParsing="false" text="View" />
-      <Button layoutX="177.0" layoutY="350.0" mnemonicParsing="false" text="Main Menu" />
-      <Button layoutX="310.0" layoutY="350.0" mnemonicParsing="false" text="Upload" />
-      <Button layoutX="372.0" layoutY="350.0" mnemonicParsing="false" text="Delete" />
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <ListView fx:id="STIGCatalogListView" layoutX="50.0" layoutY="50.0" prefHeight="300.0" prefWidth="500.0" />
+            <Text layoutX="264.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Local Catalog" />
+            <Button layoutX="259.0" layoutY="350.0" mnemonicParsing="false" onAction="#GoToSTIGViewer" text="View" />
+            <Button layoutX="177.0" layoutY="350.0" mnemonicParsing="false" onAction="#GoToMainMenu" text="Main Menu" />
+            <Button layoutX="310.0" layoutY="350.0" mnemonicParsing="false" onAction="#UploadSTIG" text="Upload" />
+            <Button layoutX="372.0" layoutY="350.0" mnemonicParsing="false" onAction="#DeleteSTIG" text="Delete" />
+         </children>
+      </Pane>
    </children>
-</Pane>
+</AnchorPane>

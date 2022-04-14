@@ -5,18 +5,22 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.OnlineCatalogController">
    <children>
-      <Text layoutX="111.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Online Catalog" />
-      <ListView layoutX="50.0" layoutY="50.0" prefHeight="300.0" prefWidth="200.0" />
-      <Button layoutX="262.0" layoutY="50.0" mnemonicParsing="false" text="Main Menu" />
-      <Button layoutX="279.0" layoutY="130.0" mnemonicParsing="false" text="&lt;&lt;&lt;" />
-      <Button layoutX="279.0" layoutY="90.0" mnemonicParsing="false" text="&gt;&gt;&gt;" />
-      <Button layoutX="264.0" layoutY="169.0" mnemonicParsing="false" text="Download" />
-      <ProgressIndicator layoutX="284.0" layoutY="215.0" progress="0.0" />
-      <Button layoutX="255.0" layoutY="325.0" mnemonicParsing="false" text="Local Catalog" />
-      <Text layoutX="388.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Files to be Downloaded" />
-      <ListView layoutX="350.0" layoutY="50.0" prefHeight="300.0" prefWidth="200.0" />
-      <TextArea editable="false" layoutX="255.0" layoutY="255.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="63.0" prefWidth="87.0" wrapText="true" />
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Text layoutX="111.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Online Catalog" />
+            <ListView fx:id="OnlineCatalogList" layoutX="50.0" layoutY="50.0" prefHeight="300.0" prefWidth="200.0" />
+            <Button layoutX="262.0" layoutY="50.0" mnemonicParsing="false" onAction="#GoToMainMenu" text="Main Menu" />
+            <Button layoutX="279.0" layoutY="130.0" mnemonicParsing="false" onAction="#RemoveFromDownloadList" text="&lt;&lt;&lt;" />
+            <Button layoutX="279.0" layoutY="90.0" mnemonicParsing="false" onAction="#AddToDownloadList" text="&gt;&gt;&gt;" />
+            <Button layoutX="264.0" layoutY="169.0" mnemonicParsing="false" onAction="#Download" text="Download" />
+            <ProgressIndicator fx:id="DownloadProgressBar" layoutX="284.0" layoutY="215.0" progress="0.0" />
+            <Button layoutX="255.0" layoutY="325.0" mnemonicParsing="false" onAction="#GoToLocalCatalog" text="Local Catalog" />
+            <Text layoutX="388.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Files to be Downloaded" />
+            <ListView fx:id="DownloadList" layoutX="350.0" layoutY="50.0" prefHeight="300.0" prefWidth="200.0" />
+            <TextArea fx:id="DownloadStatusTextArea" editable="false" layoutX="255.0" layoutY="255.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="63.0" prefWidth="87.0" wrapText="true" />
+         </children>
+      </Pane>
    </children>
-</Pane>
+</AnchorPane>
