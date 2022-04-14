@@ -2,7 +2,6 @@ package application.model;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.regex.Pattern;
 
 public class LocalCatalog {
@@ -10,7 +9,7 @@ public class LocalCatalog {
 	public static ArrayList<String> arrayOfSTIGS = new ArrayList<String>();
 	public static String[] fileList;
 
-	public static ArrayList<String> stigsArray(File catalogLocation){
+	public static ArrayList<String> enumerate(File catalogLocation){
 		fileList = catalogLocation.list();
 		
 		for(String fileName: fileList) {
@@ -21,4 +20,7 @@ public class LocalCatalog {
 		return arrayOfSTIGS;
 		
 	}
+	
+	public static void 
+	
 }

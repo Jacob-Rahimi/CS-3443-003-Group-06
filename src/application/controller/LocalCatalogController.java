@@ -79,7 +79,7 @@ public class LocalCatalogController implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		File catalogLocation = new File("src/data");
-		ArrayList<String> xmlList = LocalCatalog.stigsArray(catalogLocation);
+		ArrayList<String> xmlList = LocalCatalog.enumerate(catalogLocation);
 		ObservableList<String> xml = FXCollections.observableArrayList(xmlList);
 		
 		STIGCatalogListView.setItems(xml);
