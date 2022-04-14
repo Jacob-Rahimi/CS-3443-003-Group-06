@@ -72,19 +72,27 @@ public class LocalCatalogController implements Initializable{
     }
 
     @FXML
-    void DeleteSTIG(ActionEvent event) {
+    public void DeleteSTIG(ActionEvent event) {
     	// TODO - implement functionality to delete the file from the local catalog
+    	int index = STIGCatalogListView.getSelectionModel().getSelectedIndex();
+    	if (index >= 0) {
+    		
+    		File stigFile = new File("src/data/" + STIGCatalogListView.getSelectionModel().getSelectedItem());
+    		LocalCatalog.deleteSTIGs(stigFile);
+    		STIGCatalogListView.getItems().remove(index);
+    	}
+    	
     }
-
+    
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		File catalogLocation = new File("src/data");
-		ArrayList<String> xmlList = LocalCatalog.enumerate(catalogLocation);
+		ArrayList<String> xmlList = LocalCatalog.readList();
 		ObservableList<String> xml = FXCollections.observableArrayList(xmlList);
-		
 		STIGCatalogListView.setItems(xml);
-		
+		xmlList.clear();
+	
+	
 	}
     
-   
+	
 }
