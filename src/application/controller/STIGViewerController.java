@@ -2,15 +2,19 @@ package application.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 import application.model.STIGDocument;
+import application.model.STIGFilter;
 import application.model.STIGRule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
@@ -31,7 +35,19 @@ public class STIGViewerController {
 	
 	STIGDocument referenceSTIG;
 	ArrayList<STIGRule> filteredSTIGRules;
-	ObservableList<STIGRule> stigRuleList = FXCollections.observableArrayList();
+	
+	PropertyValueFactory<STIGRule, String> vulID = new PropertyValueFactory<STIGRule, String>("vulID");
+	PropertyValueFactory<STIGRule, String> subVulID = new PropertyValueFactory<STIGRule, String>("subVulID");
+	PropertyValueFactory<STIGRule, String> stigID = new PropertyValueFactory<STIGRule, String>("stigID");
+	PropertyValueFactory<STIGRule, String> severityCat = new PropertyValueFactory<STIGRule, String>("severityCat");
+	PropertyValueFactory<STIGRule, String> groupTitle = new PropertyValueFactory<STIGRule, String>("groupTitle");
+	PropertyValueFactory<STIGRule, String> ruleTitle = new PropertyValueFactory<STIGRule, String>("ruleTitle");
+	PropertyValueFactory<STIGRule, String> ruleDiscussion = new PropertyValueFactory<STIGRule, String>("ruleDiscussion");
+	PropertyValueFactory<STIGRule, String> checkText = new PropertyValueFactory<STIGRule, String>("checkText");
+	PropertyValueFactory<STIGRule, String> fixText = new PropertyValueFactory<STIGRule, String>("fixText");
+	PropertyValueFactory<STIGRule, String> CCI = new PropertyValueFactory<STIGRule, String>("CCI");
+	
+	
 
 	@FXML
     private AnchorPane mainPane;
@@ -54,19 +70,20 @@ public class STIGViewerController {
     
     // Filter Table
     @FXML
-    private TableView<?> FilterTable;
+    private TableView<STIGFilter> FilterTable;
 
     @FXML
-    private TableColumn<?, ?> FilterFieldColumn;
+    private TableColumn<STIGFilter, String> FilterFieldColumn;
 
     @FXML
-    private TableColumn<?, ?> FilterTypeColumn;
+    private TableColumn<STIGFilter, String> FilterTypeColumn;
 
     @FXML
-    private TableColumn<?, ?> FilterTextColumn;
+    private TableColumn<STIGFilter, String> FilterTextColumn;
     
     // Filter Buttons & Fields
-    @FXML
+    
+	@FXML
     private ChoiceBox<String> FilterField;
     
     @FXML
@@ -98,12 +115,28 @@ public class STIGViewerController {
     
     @FXML
     void AddFilter(ActionEvent event) {
-
+    	// Detect if there is a valid selected in the FilteredField and the FilterTextArea
+    	if(FilterField.getSelectionModel().getSelectedItem() != null && FilterTextField.getText() != null ) {
+    		STIGFilter filterRow = new STIGFilter(FilterField.getSelectionModel().getSelectedItem(), (MatchButton.isSelected() ? "Matches" : "Contains"), FilterTextField.getText());
+    		
+    		FilterFieldColumn.setCellValueFactory( new PropertyValueFactory<STIGFilter, String>("field") );
+    		FilterTypeColumn.setCellValueFactory( new PropertyValueFactory<STIGFilter, String>("type") );
+    		FilterTextColumn.setCellValueFactory( new PropertyValueFactory<STIGFilter, String>("text") );
+    		
+    		FilterTable.getItems().add(filterRow);
+    		updateFilteredSTIG();
+    	}
     }
 
     @FXML
-    void DeleteFilter(ActionEvent event) {
-
+    void DeleteFilter() {
+    	// Detect if an filter is available and selected
+    	if(FilterTable.getSelectionModel().getSelectedItem() != null) {
+    		// Delete the filter
+    		FilterTable.getItems().remove(FilterTable.getSelectionModel().getSelectedItem());
+    		// Update the filtered STIG
+    		updateFilteredSTIG();
+    	}
     }
     
     @FXML
@@ -176,15 +209,13 @@ public class STIGViewerController {
     											vulIDHeader, vulIDContent, ruleIDHeader, ruleIDContent, stigIDHeader, stigIDContent,
     											severityHeader, severityContent, legacyIDsHeader, legacyIDsContent);
     		STIGRuleHeader.setStyle("-fx-font-size: 14px");
+    		
     		STIGRuleContent.getChildren().addAll(groupTitleHeader, groupTitleContent,
     											ruleTitleHeader, ruleTitleContent,
     											discussionHeader, discussionContent,
     											checkTextHeader, checkTextContent,
     											fixTextHeader, fixTextContent);
     		STIGRuleContent.setStyle("-fx-font-size: 14px");
-    		
-    		
-    		
     	}
     }
 
@@ -242,19 +273,34 @@ public class STIGViewerController {
     void initializeSTIGViewer( String stigFileName ) throws ParserConfigurationException, SAXException, IOException {
     	// Populate the referenceSTIG and the filteredSTIG (filtered STIG is initialized with no filter in place)
     	referenceSTIG = new STIGDocument( stigFileName );
-    	filteredSTIGRules = referenceSTIG.getStigRuleArrayList();
     	
-    	// Update Filtered STIG Table
-    	updateFilteredSTIGTable();
+    	// Update Filtered STIG Data
+    	updateFilteredSTIG();
+    	
+    	// Initialize choice box
+    	FilterField.getItems().addAll( "vulID", "subVulID", "stigID", "severityCat", "groupTitle", "ruleTitle", "ruleDiscussion", "checkText", "fixText", "CCI");
+    	FilterField.getSelectionModel().select(0);
     	
     }
     
-    void updateFilteredSTIGTable() {
-    	VulnIDColumn.setCellValueFactory(new PropertyValueFactory<STIGRule, String>("vulID"));
-        STIGIDColumn.setCellValueFactory(new PropertyValueFactory<STIGRule, String>("stigID"));
-        RuleIDColumn.setCellValueFactory(new PropertyValueFactory<STIGRule, String>("subVulID"));
-        RuleNameColumn.setCellValueFactory(new PropertyValueFactory<STIGRule, String>("groupTitle"));
+    void updateFilteredSTIG() {
+    	filteredSTIGRules = referenceSTIG.getStigRuleArrayList();
+    	
+    	// Update STIG Rule Table
+    	VulnIDColumn.setCellValueFactory(vulID);
+        STIGIDColumn.setCellValueFactory(stigID);
+        RuleIDColumn.setCellValueFactory(subVulID);
+        RuleNameColumn.setCellValueFactory(groupTitle);
     	STIGRuleTable.getItems().setAll( filteredSTIGRules );
+    	
+    	// Update Pie Chart
+    	ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+    			new PieChart.Data("CAT I (High)", 1),
+    			new PieChart.Data("CAT II (Medium)", 2),
+    			new PieChart.Data("CAT III (Low)", 3));
+    	RuleSeverityChart.setData(pieChartData);
+    	RuleSeverityChart.setLegendSide(Side.BOTTOM);
+    	RuleSeverityChart.setLegendVisible(true);
     }
 
 }

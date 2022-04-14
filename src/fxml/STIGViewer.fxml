@@ -15,15 +15,11 @@
         <items>
             <VBox alignment="TOP_CENTER" minWidth="350.0">
                <children>
-                  <TitledPane text="Rule Severity Distribution" VBox.vgrow="ALWAYS">
+                  <TitledPane alignment="TOP_LEFT" text="Rule Severity Distribution" VBox.vgrow="ALWAYS">
                     <content>
                       <AnchorPane maxHeight="250.0" maxWidth="250.0" minHeight="0.0" minWidth="0.0">
                            <children>
-                              <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <children>
-                                    <PieChart fx:id="RuleSeverityChart" />
-                                 </children>
-                              </VBox>
+                              <PieChart fx:id="RuleSeverityChart" labelsVisible="false" maxHeight="250.0" maxWidth="250.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                     </content>
@@ -54,7 +50,7 @@
                                                 <ToggleGroup fx:id="MatchType" />
                                              </toggleGroup>
                                           </RadioButton>
-                                          <RadioButton fx:id="MatchButton" mnemonicParsing="false" text="Matches" toggleGroup="$MatchType" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                          <RadioButton fx:id="MatchButton" mnemonicParsing="false" selected="true" text="Matches" toggleGroup="$MatchType" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                        </children>
                                        <padding>
                                           <Insets bottom="5.0" />

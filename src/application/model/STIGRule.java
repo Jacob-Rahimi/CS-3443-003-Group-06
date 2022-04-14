@@ -80,8 +80,9 @@ public class STIGRule {
 						NodeList checkNodeList = ruleChildNode.getChildNodes();
 						for( int k = 0; k < checkNodeList.getLength(); k++) {
 							Node checkChildNode = checkNodeList.item(k);
-							if( checkChildNode.getNodeName().equals("check-content") )
-								this.checkText += checkChildNode.getTextContent() + "\n";
+							if( checkChildNode.getNodeName().equals("check-content") ) {
+								this.checkText = checkChildNode.getTextContent() + "\n";
+							}
 						}
 					}
 				}
