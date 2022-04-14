@@ -112,7 +112,7 @@
             <VBox alignment="TOP_CENTER" minWidth="100.0">
                <children>
                   <Label text="STIG Rules" VBox.vgrow="ALWAYS" />
-                  <AnchorPane onMouseClicked="#loadSTIGRule" VBox.vgrow="ALWAYS">
+                  <AnchorPane VBox.vgrow="ALWAYS">
                      <children>
                         <TableView fx:id="STIGRuleTable" onMouseClicked="#displaySelectedRule" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <columns>
@@ -132,10 +132,14 @@
             <VBox alignment="TOP_CENTER" prefHeight="760.0" prefWidth="321.0">
                <children>
                   <Label text="STIG Rule Content" />
-                  <SplitPane dividerPositions="0.413" orientation="VERTICAL" VBox.vgrow="ALWAYS">
+                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" VBox.vgrow="ALWAYS">
                      <items>
-                        <TextArea fx:id="STIGRuleHeader" editable="false" text="&#10;&#10;Lorem ipsum dolor sit amet, consectetur adipiscing elit,&#10; sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. &#10;Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris &#10;nisi ut aliquip ex ea commodo consequat. &#10;Duis aute irure dolor in reprehenderit in voluptate velit&#10; esse cillum dolore eu fugiat nulla pariatur. &#10;Excepteur sint occaecat cupidatat non proident, &#10;sunt in culpa qui officia deserunt mollit anim id est laborum." wrapText="true" />
-                        <TextArea fx:id="STIGRuleContent" editable="false" text="&#10;&#10;Lorem ipsum dolor sit amet, consectetur adipiscing elit,&#10; sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. &#10;Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris &#10;nisi ut aliquip ex ea commodo consequat. &#10;Duis aute irure dolor in reprehenderit in voluptate velit&#10; esse cillum dolore eu fugiat nulla pariatur. &#10;Excepteur sint occaecat cupidatat non proident, &#10;sunt in culpa qui officia deserunt mollit anim id est laborum." wrapText="true" />
+                        <TextFlow fx:id="STIGRuleHeader" textAlignment="CENTER" />
+                        <ScrollPane fitToHeight="true" fitToWidth="true">
+                           <content>
+                              <TextFlow fx:id="STIGRuleContent" lineSpacing="10.0" />
+                           </content>
+                        </ScrollPane>
                      </items>
                   </SplitPane>
                </children>
