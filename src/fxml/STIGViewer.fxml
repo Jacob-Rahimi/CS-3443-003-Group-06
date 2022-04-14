@@ -9,11 +9,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="mainPane" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainPane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.STIGViewerController">
    <children>
-      <SplitPane dividerPositions="0.0, 0.5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.5, 0.5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-            <VBox alignment="TOP_CENTER">
+            <VBox alignment="TOP_CENTER" minWidth="350.0">
                <children>
                   <TitledPane text="Rule Severity Distribution" VBox.vgrow="ALWAYS">
                     <content>
@@ -28,9 +28,9 @@
                         </AnchorPane>
                     </content>
                   </TitledPane>
-                  <TitledPane text="Filter" VBox.vgrow="ALWAYS">
+                  <TitledPane minWidth="350.0" text="Filter" VBox.vgrow="ALWAYS">
                     <content>
-                      <AnchorPane>
+                      <AnchorPane minWidth="350.0">
                            <children>
                               <VBox alignment="TOP_CENTER" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
@@ -38,7 +38,7 @@
                                        <children>
                                           <ChoiceBox fx:id="FilterField" prefHeight="19.0" prefWidth="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                           <Button mnemonicParsing="false" onAction="#AddFilter" text="Add Filter" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                                          <TextField fx:id="FilterTextField" prefHeight="25.0" prefWidth="126.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="83.0" AnchorPane.topAnchor="10.0" />
+                                          <TextField fx:id="FilterTextField" minWidth="126.0" prefHeight="25.0" prefWidth="126.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="83.0" AnchorPane.topAnchor="10.0" />
                                        </children>
                                        <VBox.margin>
                                           <Insets />
@@ -60,7 +60,7 @@
                                           <Insets bottom="5.0" />
                                        </padding>
                                     </AnchorPane>
-                                    <AnchorPane>
+                                    <AnchorPane prefHeight="250.0" VBox.vgrow="ALWAYS">
                                        <children>
                                           <TableView fx:id="FilterTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <columns>
@@ -114,11 +114,11 @@
                   <Label text="STIG Rules" VBox.vgrow="ALWAYS" />
                   <AnchorPane onMouseClicked="#loadSTIGRule" VBox.vgrow="ALWAYS">
                      <children>
-                        <TableView fx:id="STIGRuleTable" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="STIGRuleTable" onMouseClicked="#displaySelectedRule" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <columns>
-                              <TableColumn fx:id="VulnIDColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="Vul ID" />
-                              <TableColumn fx:id="STIGIDColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="STIG ID" />
-                              <TableColumn fx:id="RuleIDColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="Rule ID" visible="false" />
+                              <TableColumn fx:id="VulnIDColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="60.0" prefWidth="-1.0" text="Vul ID" />
+                              <TableColumn fx:id="STIGIDColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="110.0" prefWidth="-1.0" text="STIG ID" />
+                              <TableColumn fx:id="RuleIDColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="Rule ID" />
                               <TableColumn fx:id="RuleNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="Rule Name" visible="false" />
                            </columns>
                         </TableView>
@@ -129,7 +129,7 @@
                   </AnchorPane>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER">
+            <VBox alignment="TOP_CENTER" prefHeight="760.0" prefWidth="321.0">
                <children>
                   <Label text="STIG Rule Content" />
                   <SplitPane dividerPositions="0.413" orientation="VERTICAL" VBox.vgrow="ALWAYS">

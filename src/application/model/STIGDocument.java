@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 // XML-related packages
 import org.w3c.dom.*;
+import org.xml.sax.SAXException;
+
 import javax.xml.parsers.*;
 import java.io.*;
 
@@ -17,40 +19,38 @@ public class STIGDocument {
 	/**
 	 * This constructor assigns the object's variables based on the provided fileName argument
 	 * @param stigFileName This is the filename of the XML STIG file that will be read from to assign the object's variables
+	 * @throws ParserConfigurationException throws an error if there was an error parsing the file
+	 * @throws IOException throws an error if there was an issue reading the file
+	 * @throws SAXException throws an error if there was a SAX error or warning
 	 */
-	public void stigDocumentReader( String stigFileName ) {
-		try {
-			File stigFile = new File(stigFileName);
+	public STIGDocument( String stigFileName ) throws ParserConfigurationException, SAXException, IOException {
+		File stigFile = new File(stigFileName);
+		
+		// Create the document builder and parse the XML file
+		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+		Document doc = builder.parse(stigFile);
+		doc.getDocumentElement().normalize();
+		
+		// Get <benchmark> and create a NodeList of its child nodes
+		Node benchmark = doc.getElementsByTagName("Benchmark").item(0);
+		NodeList benchmarkNodeList = benchmark.getChildNodes();
+		
+		// Iterate through <benchmark>'s child nodes and collect STIG data
+		for ( int i = 0; i < benchmarkNodeList.getLength(); i++ ) {
+			Node benchmarkChildNode = benchmarkNodeList.item(i);
 			
-			// Create the document builder and parse the XML file
-			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-			Document doc = builder.parse(stigFile);
-			doc.getDocumentElement().normalize();
-			
-			// Get <benchmark> and create a NodeList of its child nodes
-			Node benchmark = doc.getElementsByTagName("Benchmark").item(0);
-			NodeList benchmarkNodeList = benchmark.getChildNodes();
-			
-			// Iterate through <benchmark>'s child nodes and collect STIG data
-			for ( int i = 0; i < benchmarkNodeList.getLength(); i++ ) {
-				Node benchmarkChildNode = benchmarkNodeList.item(i);
-				
-				// Collect stigTitle
-				if( benchmarkChildNode.getNodeName().equals("title") )
-					this.stigTitle = benchmarkChildNode.getTextContent();
-				// Collect stigDescription
-				if( benchmarkChildNode.getNodeName().equals("description") )
-					this.stigDescription = benchmarkChildNode.getTextContent();
-				// Collect stigRule
-				if( benchmarkChildNode.getNodeName().equals("Group") ) {
-					stigRuleArrayList.add( new STIGRule(benchmarkChildNode) );
-				}
-				
+			// Collect stigTitle
+			if( benchmarkChildNode.getNodeName().equals("title") )
+				this.stigTitle = benchmarkChildNode.getTextContent();
+			// Collect stigDescription
+			if( benchmarkChildNode.getNodeName().equals("description") )
+				this.stigDescription = benchmarkChildNode.getTextContent();
+			// Collect stigRule
+			if( benchmarkChildNode.getNodeName().equals("Group") ) {
+				stigRuleArrayList.add( new STIGRule(benchmarkChildNode) );
 			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
+			
 	}
 	
 	

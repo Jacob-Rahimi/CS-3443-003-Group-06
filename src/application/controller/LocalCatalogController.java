@@ -29,7 +29,27 @@ public class LocalCatalogController implements Initializable{
 
     @FXML
     void GoToSTIGViewer(ActionEvent event) {
-
+    	try {
+    		// Load the STIGViewer fxml file
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("../../fxml/STIGViewer.fxml"));
+    		mainPane = loader.load();
+    	
+    		// Load the controller and initialize the STIGDocument with the selected STIG
+    		STIGViewerController controller = loader.getController();
+    		controller.initializeSTIGViewer("I:\\test\\U_MS_Windows_10_STIG_V2R3_Manual-xccdf.xml");
+    	
+    		// Load the scene
+    		Scene scene = new Scene(mainPane);
+    		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+			window.setScene(scene);
+			window.setTitle("STIG Viewer");
+			window.setResizable(true);
+			window.setWidth(1200);
+			window.setHeight(800);
+			window.show();
+    	} catch( Exception e ) {
+    		e.printStackTrace();
+    	}
     }
 
     @FXML
@@ -48,12 +68,12 @@ public class LocalCatalogController implements Initializable{
 
     @FXML
     void UploadSTIG(ActionEvent event) {
-
+    	// TODO - implement functionality to prompt the user to select a file to copy over to the local catalog
     }
 
     @FXML
     void DeleteSTIG(ActionEvent event) {
-
+    	// TODO - implement functionality to delete the file from the local catalog
     }
 
 	@Override
