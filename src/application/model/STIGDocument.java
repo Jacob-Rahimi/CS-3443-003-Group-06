@@ -12,7 +12,7 @@ public class STIGDocument {
 	public String stigTitle;
 	public String stigDescription;
 	// Main Information
-	ArrayList<STIGGroup> stigGroupArrayList = new ArrayList<STIGGroup>();
+	ArrayList<STIGRule> stigRuleArrayList = new ArrayList<STIGRule>();
 	
 	/**
 	 * This constructor assigns the object's variables based on the provided fileName argument
@@ -41,9 +41,9 @@ public class STIGDocument {
 				// Collect stigDescription
 				if( benchmarkChildNode.getNodeName().equals("description") )
 					this.stigDescription = benchmarkChildNode.getTextContent();
-				// Collect stigGroup
+				// Collect stigRule
 				if( benchmarkChildNode.getNodeName().equals("Group") ) {
-					stigGroupArrayList.add( new STIGGroup(benchmarkChildNode) );
+					stigRuleArrayList.add( new STIGRule(benchmarkChildNode) );
 				}
 				
 			}
@@ -87,18 +87,18 @@ public class STIGDocument {
 	}
 	
 	/**
-	 * A getter method for the object's stigGroupArrayList ArrayList
-	 * @return Returns the object's stigGroupArrayList ArrayList
+	 * A getter method for the object's stigRuleArrayList ArrayList
+	 * @return Returns the object's stigRuleArrayList ArrayList
 	 */
-	public ArrayList<STIGGroup> getStigGroupArrayList() {
-		return stigGroupArrayList;
+	public ArrayList<STIGRule> getStigRuleArrayList() {
+		return stigRuleArrayList;
 	}
 	/**
-	 * A setter method for the object's stigGroupArrayList ArrayList of STIGGroups
-	 * @param stigGroupArrayList the ArrayList of STIGGroups to be used for the object's stigGroupArrayList
+	 * A setter method for the object's stigRuleArrayList ArrayList of STIGRules
+	 * @param stigRuleArrayList the ArrayList of STIGRules to be used for the object's stigRuleArrayList
 	 */
-	public void setStigGroupArrayList(ArrayList<STIGGroup> stigGroupArrayList) {
-		this.stigGroupArrayList = stigGroupArrayList;
+	public void setStigRuleArrayList(ArrayList<STIGRule> stigRuleArrayList) {
+		this.stigRuleArrayList = stigRuleArrayList;
 	}
 	
 }
