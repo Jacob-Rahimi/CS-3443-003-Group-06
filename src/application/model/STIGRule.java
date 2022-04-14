@@ -9,11 +9,11 @@ public class STIGRule {
 	// Header Information
 	public String vulID;		// Also known as Group ID
 	public String subVulID;		// Also known as Rule ID
-	public String stigID;
+	public String stigID;		
 	public String severityCat;	// Severity Category {CAT I, CAT II, CAT III}
 	public ArrayList<String> legacyIDs = new ArrayList<String>();
 	// Main Content
-	public String groupTitle;
+	public String groupTitle;	// Also known as rule name
 	public String ruleTitle;
 	public String ruleDiscussion;
 	public String checkText;
@@ -59,6 +59,9 @@ public class STIGRule {
 					// Collect ruleTitle
 					if( ruleChildNode.getNodeName().equals("title") )
 						this.ruleTitle = ruleChildNode.getTextContent();
+					// Collect stigID
+					if( ruleChildNode.getNodeName().equals("version") ) 
+						this.stigID = ruleChildNode.getTextContent();
 					// Collect ruleDiscussion
 					if( ruleChildNode.getNodeName().equals("description") ) {
 						this.ruleDiscussion = ruleChildNode.getTextContent().replaceFirst("<VulnDiscussion>", "").replaceFirst("</VulnDiscussion>.*", "") ;
