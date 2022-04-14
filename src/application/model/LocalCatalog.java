@@ -1,7 +1,24 @@
 package application.model;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.regex.Pattern;
 
 public class LocalCatalog {
-	File catalogLocation = new File("src/data");
+	
+	public static ArrayList<String> arrayOfSTIGS = new ArrayList<String>();
+	public static String[] fileList;
+
+	public static ArrayList<String> stigsArray(File catalogLocation){
+		fileList = catalogLocation.list();
+		
+		for(String fileName: fileList) {
+			if(Pattern.matches(".*\\.xml$", fileName)) {
+				arrayOfSTIGS.add(fileName);
+			}
+		}
+		return arrayOfSTIGS;
+		
+	}
 }
