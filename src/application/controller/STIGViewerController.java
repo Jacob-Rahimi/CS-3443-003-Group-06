@@ -2,8 +2,6 @@ package application.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 import application.model.STIGDocument;
@@ -34,7 +32,6 @@ import javafx.stage.Stage;
 public class STIGViewerController {
 	
 	STIGDocument referenceSTIG;
-	ArrayList<STIGRule> filteredSTIGRules;
 	
 	PropertyValueFactory<STIGRule, String> vulID = new PropertyValueFactory<STIGRule, String>("vulID");
 	PropertyValueFactory<STIGRule, String> subVulID = new PropertyValueFactory<STIGRule, String>("subVulID");
@@ -46,8 +43,6 @@ public class STIGViewerController {
 	PropertyValueFactory<STIGRule, String> checkText = new PropertyValueFactory<STIGRule, String>("checkText");
 	PropertyValueFactory<STIGRule, String> fixText = new PropertyValueFactory<STIGRule, String>("fixText");
 	PropertyValueFactory<STIGRule, String> CCI = new PropertyValueFactory<STIGRule, String>("CCI");
-	
-	
 
 	@FXML
     private AnchorPane mainPane;
@@ -110,8 +105,6 @@ public class STIGViewerController {
 
     @FXML
     private TextFlow STIGRuleContent;
-
-    
     
     @FXML
     void AddFilter(ActionEvent event) {
@@ -284,8 +277,57 @@ public class STIGViewerController {
     }
     
     void updateFilteredSTIG() {
-    	filteredSTIGRules = referenceSTIG.getStigRuleArrayList();
-    	
+    	ArrayList<STIGRule> filteredSTIGRules;
+    	if( FilterTable.getItems().size() == 0) 
+    		filteredSTIGRules = referenceSTIG.getStigRuleArrayList();
+    	else {
+    		filteredSTIGRules = new ArrayList<STIGRule>();
+    		for( STIGRule rule : referenceSTIG.getStigRuleArrayList() ) {
+    			for( STIGFilter filter : FilterTable.getItems() ) {
+    				if(filter.getField().equals("vulID") && filter.getPattern().matcher(rule.getVulID()).matches() ) {
+    					filteredSTIGRules.add(rule);
+    					break;
+    				}
+    				else if(filter.getField().equals("subVulID") && filter.getPattern().matcher(rule.getSubVulID()).matches() ) {
+    					filteredSTIGRules.add(rule);
+    					break;
+    				}
+    				else if(filter.getField().equals("stigID") && filter.getPattern().matcher(rule.getStigID()).matches() ) {
+    					filteredSTIGRules.add(rule);
+    					break;
+    				}
+    				else if(filter.getField().equals("severityCat") && filter.getPattern().matcher(rule.getSeverityCat()).matches() ) {
+    					filteredSTIGRules.add(rule);
+    					break;
+    				}
+    				else if(filter.getField().equals("groupTitle") && filter.getPattern().matcher(rule.getGroupTitle()).matches() ) {
+    					filteredSTIGRules.add(rule);
+    					break;
+    				}
+    				else if(filter.getField().equals("ruleTitle") && filter.getPattern().matcher(rule.getRuleTitle()).matches() ) {
+    					filteredSTIGRules.add(rule);
+    					break;
+    				}
+    				else if(filter.getField().equals("ruleDiscussion") && filter.getPattern().matcher(rule.getRuleDiscussion()).matches() ) {
+    					filteredSTIGRules.add(rule);
+    					break;
+    				}
+    				else if(filter.getField().equals("checkText") && filter.getPattern().matcher(rule.getCheckText()).matches() ) {
+    					filteredSTIGRules.add(rule);
+    					break;
+    				}
+    				else if(filter.getField().equals("fixText") && filter.getPattern().matcher(rule.getFixText()).matches() ) {
+    					filteredSTIGRules.add(rule);
+    					break;
+    				}
+    				else if(filter.getField().equals("CCI") && filter.getPattern().matcher(rule.getCCI()).matches() ) {
+    					filteredSTIGRules.add(rule);
+    					break;
+    				}
+    			}
+    		}
+    	}
+    
     	// Update STIG Rule Table
     	VulnIDColumn.setCellValueFactory(vulID);
         STIGIDColumn.setCellValueFactory(stigID);
@@ -293,11 +335,24 @@ public class STIGViewerController {
         RuleNameColumn.setCellValueFactory(groupTitle);
     	STIGRuleTable.getItems().setAll( filteredSTIGRules );
     	
+    	// Collect Data for Pie Chart
+    	int catI = 0;
+    	int catII = 0;
+    	int catIII = 0;
+    	for( STIGRule rule: filteredSTIGRules) {
+    		if( rule.getSeverityCat().equals("CAT I") ) catI++;
+    		else if( rule.getSeverityCat().equals("CAT II") ) catII++; 
+    		else if( rule.getSeverityCat().equals("CAT III") ) catIII++;
+    	}
+    	
     	// Update Pie Chart
-    	ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-    			new PieChart.Data("CAT I (High)", 1),
-    			new PieChart.Data("CAT II (Medium)", 2),
-    			new PieChart.Data("CAT III (Low)", 3));
+    	ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+    	if( catI > 0 ) 
+    		pieChartData.add(new PieChart.Data("CAT I (High)", catI));
+    	if( catII > 0 )
+    		pieChartData.add(new PieChart.Data("CAT II (Medium)", catII));
+    	if( catIII > 0 )
+    		pieChartData.add(new PieChart.Data("CAT III (Low)", catIII));
     	RuleSeverityChart.setData(pieChartData);
     	RuleSeverityChart.setLegendSide(Side.BOTTOM);
     	RuleSeverityChart.setLegendVisible(true);
