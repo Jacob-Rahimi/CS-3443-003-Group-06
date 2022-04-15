@@ -105,6 +105,7 @@ public class OnlineCatalog {
 				// Downloads XML file
 				FileWriter fw = new FileWriter(file);
 				PrintWriter pw = new PrintWriter(fw);
+				doc.outputSettings().charset("ISO-8859-1");
 				pw.println(doc);
 				pw.close();
 			}
