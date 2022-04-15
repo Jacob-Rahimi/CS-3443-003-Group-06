@@ -12,9 +12,13 @@ public class STIGFilter {
 		this.field = filterField;
 		this.type = filterType;
 		this.text = filterText;
+		
+		// Generate the pattern based on if "Matches" or "Contains" was selected
 		if( filterType.equals("Matches") ) pattern = Pattern.compile("^" + filterText + "$", Pattern.CASE_INSENSITIVE);
 		else pattern = Pattern.compile(".*" + filterText + ".*", Pattern.CASE_INSENSITIVE);
 	}
+	
+	// Getter and Setters
 
 	public String getField() {
 		return field;
