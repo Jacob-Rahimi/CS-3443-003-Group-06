@@ -12,7 +12,7 @@ public class LocalCatalog {
 	
 	public static ArrayList<String> arrayOfSTIGS = new ArrayList<String>();
 	public static String[] fileList;
-	public static String catalogPath = "src/data/catalog";
+	public static String catalogPath = "src/data/catalog/";
 	
 	public static ArrayList<String> readList(){
 		File catalogLocation = new File(catalogPath);
