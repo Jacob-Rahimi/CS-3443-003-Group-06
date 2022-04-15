@@ -53,7 +53,8 @@ public class OnlineCatalogController {
 
     @FXML
     void RemoveFromDownloadList(ActionEvent event) {
-
+    	if (DownloadList.getSelectionModel().getSelectedItem() != null) 
+    		DownloadList.getItems().remove( DownloadList.getSelectionModel().getSelectedItem() );
     }
 
     @FXML
