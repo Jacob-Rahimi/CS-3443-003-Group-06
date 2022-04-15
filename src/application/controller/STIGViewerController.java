@@ -1,5 +1,6 @@
 package application.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.xml.parsers.ParserConfigurationException;
@@ -282,9 +283,9 @@ public class STIGViewerController {
      * @throws SAXException
      * @throws IOException
      */
-    void initializeSTIGViewer( String stigFileName ) throws ParserConfigurationException, SAXException, IOException {
+    void initializeSTIGViewer( File stigFile ) throws ParserConfigurationException, SAXException, IOException {
     	// Populate the referenceSTIG and the filteredSTIG (filtered STIG is initialized with no filter in place)
-    	referenceSTIG = new STIGDocument( stigFileName );
+    	referenceSTIG = new STIGDocument( stigFile );
     	
     	// Update Filtered STIG Data
     	updateFilteredSTIGRules();

@@ -21,8 +21,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.*;
-import javafx.stage.FileChooser.*;
+import javafx.stage.Stage;
 
 public class LocalCatalogController implements Initializable{
 
@@ -41,7 +40,7 @@ public class LocalCatalogController implements Initializable{
 	    	 		
 	    	// Load the controller and initialize the STIGDocument with the selected STIG
 	    	STIGViewerController controller = loader.getController();
-	    	controller.initializeSTIGViewer(LocalCatalog.catalogPath + STIGCatalogListView.getSelectionModel().getSelectedItem());
+	    	controller.initializeSTIGViewer(new File(LocalCatalog.catalogPath + STIGCatalogListView.getSelectionModel().getSelectedItem()) );
 	    	
 	    	// Load the scene
 	    	Scene scene = new Scene(mainPane);
@@ -70,33 +69,26 @@ public class LocalCatalogController implements Initializable{
     }
 
     @FXML
-    void UploadSTIG(ActionEvent event) {
+    void UploadSTIG(ActionEvent event) throws IOException {
     	// TODO - implement functionality to prompt the user to select a file to copy over to the local catalog
     	LocalCatalog.uploadXML(STIGCatalogListView);
-    	
+    	updateSTIGCatalog();
     }
 
     @FXML
     public void DeleteSTIG(ActionEvent event) {
     	// TODO - implement functionality to delete the file from the local catalog
-    	int index = STIGCatalogListView.getSelectionModel().getSelectedIndex();
-    	if (index >= 0) {
+    	if (STIGCatalogListView.getSelectionModel().getSelectedItem() != null) {
     		
     		File stigFile = new File(LocalCatalog.catalogPath + STIGCatalogListView.getSelectionModel().getSelectedItem());
     		LocalCatalog.deleteSTIGs(stigFile);
-    		STIGCatalogListView.getItems().remove(index);
+    		updateSTIGCatalog();
     	}
-    	
     }
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		ArrayList<String> xmlList = LocalCatalog.readList();
-		ObservableList<String> xml = FXCollections.observableArrayList(xmlList);
-		STIGCatalogListView.setItems(xml);
-		xmlList.clear();
-	
-	
+		updateSTIGCatalog();
 	}
     
 	void updateSTIGCatalog() {

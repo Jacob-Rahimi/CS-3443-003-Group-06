@@ -1,6 +1,10 @@
 package application.model;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -39,7 +43,7 @@ public class LocalCatalog {
 		stigFile.delete();
 	}
 	
-	public static void uploadXML (ListView<String> listView) {
+	public static void uploadXML (ListView<String> listView) throws IOException {
 		FileChooser fc = new FileChooser();
     	
     	fc.getExtensionFilters().addAll(new ExtensionFilter("XML Files", "*.xml"));
@@ -47,14 +51,13 @@ public class LocalCatalog {
     	File selectedFile = fc.showOpenDialog(null);
     	
     	if (selectedFile != null) {
-    		listView.getItems().add(selectedFile.getName());
-    		
+    		Files.copy(selectedFile.toPath(),
+    				   Paths.get(catalogPath + selectedFile.getName()), 
+    				   StandardCopyOption.REPLACE_EXISTING);
     	}
     	else {
-    		System.out.println("File was not uploaded");
+    		System.out.println("ERROR: No file was selected.");
     	}
-    	
-		
 	}
 	
 }

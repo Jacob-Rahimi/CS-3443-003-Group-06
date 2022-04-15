@@ -23,8 +23,7 @@ public class STIGDocument {
 	 * @throws IOException throws an error if there was an issue reading the file
 	 * @throws SAXException throws an error if there was a SAX error or warning
 	 */
-	public STIGDocument( String stigFileName ) throws ParserConfigurationException, SAXException, IOException {
-		File stigFile = new File(stigFileName);
+	public STIGDocument( File stigFile ) throws ParserConfigurationException, SAXException, IOException {
 		
 		// Create the document builder and parse the XML file
 		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
