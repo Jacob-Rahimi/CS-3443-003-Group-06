@@ -30,6 +30,12 @@ public class STIGDocument {
 		Document doc = builder.parse(stigFile);
 		doc.getDocumentElement().normalize();
 		
+		// Check that there is a <benchmark> within the file
+		if(doc.getElementsByTagName("Benchmark").getLength() == 0) {
+			System.out.println("ERROR: STIG Benchmark not detected within file.");
+			return;
+		}
+		
 		// Get <benchmark> and create a NodeList of its child nodes
 		Node benchmark = doc.getElementsByTagName("Benchmark").item(0);
 		NodeList benchmarkNodeList = benchmark.getChildNodes();

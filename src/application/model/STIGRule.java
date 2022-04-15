@@ -1,7 +1,12 @@
 package application.model;
 
+import java.io.File;
 import java.util.ArrayList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -88,6 +93,69 @@ public class STIGRule {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * This method returns the content related to the object's CCI 
+	 * @return Returns the content related to the object's CCI  
+	 */
+	public String getCCIContent() {
+		String returnString = "";
+		try {
+			// Create the document builder and parse the XML file
+			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			Document doc = builder.parse(new File(("src/data/U_CCI_List.xml")));
+			doc.getDocumentElement().normalize();
+			
+			// Get <cci_list> and create a NodeList of its child nodes
+			Node cciList = doc.getElementsByTagName("cci_list").item(0);
+			NodeList cciNodeList = cciList.getChildNodes();
+			
+			// Iterate through <cci_list>'s child nodes and collect cci_item list
+			for ( int i = 0; i < cciNodeList.getLength(); i++ ) {
+				Node cciListChildNode = cciNodeList.item(i);
+				
+				if( cciListChildNode.getNodeName().equals("cci_items") ) {
+					// Iterate through <cci_items>'s child nodes and match object's CCI
+					for ( int j = 0; j < cciListChildNode.getChildNodes().getLength(); j++ ) {
+						Node cciItemsChildNode = cciListChildNode.getChildNodes().item(j);
+						
+						// Skip over empty nodes
+						if( cciItemsChildNode.getNodeName().equals("#text"))
+							continue;
+						
+						if ( cciItemsChildNode.getAttributes().getNamedItem("id").getTextContent().equals(CCI) ) {
+							// Iterate through the matched <cci_item> and populate the string
+							for ( int k = 0; k < cciItemsChildNode.getChildNodes().getLength(); k++ ) {
+								Node cciItemPropertiesChildNode = cciItemsChildNode.getChildNodes().item(k);
+								
+								if( cciItemPropertiesChildNode.getNodeName().equals("definition") ) 
+									returnString += cciItemPropertiesChildNode.getTextContent() + "\n";
+								if( cciItemPropertiesChildNode.getNodeName().equals("references") ) {
+									// Iterate through the <references> and add each reference's content
+									for ( int l = 0; l < cciItemPropertiesChildNode.getChildNodes().getLength(); l++) {
+										Node referencesChildNode = cciItemPropertiesChildNode.getChildNodes().item(l);
+										
+										// Skip over empty nodes
+										if( referencesChildNode.getNodeName().equals("#text"))
+											continue;
+										
+										returnString += referencesChildNode.getAttributes().getNamedItem("title").getTextContent() + ", Version: " +
+														referencesChildNode.getAttributes().getNamedItem("version").getTextContent() + ", Index: " +
+														referencesChildNode.getAttributes().getNamedItem("index").getTextContent() + "\n";
+														
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return returnString;
 	}
 	
 	// Getter and Setters

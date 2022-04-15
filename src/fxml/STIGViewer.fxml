@@ -56,7 +56,7 @@
                                           <Insets bottom="5.0" />
                                        </padding>
                                     </AnchorPane>
-                                    <AnchorPane prefHeight="250.0" VBox.vgrow="ALWAYS">
+                                    <AnchorPane prefHeight="200.0" VBox.vgrow="ALWAYS">
                                        <children>
                                           <TableView fx:id="FilterTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <columns>
@@ -105,7 +105,7 @@
                   </TitledPane>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" minWidth="100.0">
+            <VBox alignment="TOP_CENTER" minWidth="200.0">
                <children>
                   <Label text="STIG Rules" VBox.vgrow="ALWAYS" />
                   <AnchorPane VBox.vgrow="ALWAYS">
@@ -114,7 +114,7 @@
                            <columns>
                               <TableColumn fx:id="VulnIDColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="60.0" prefWidth="-1.0" text="Vul ID" />
                               <TableColumn fx:id="STIGIDColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="110.0" prefWidth="-1.0" text="STIG ID" />
-                              <TableColumn fx:id="RuleIDColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="Rule ID" />
+                              <TableColumn fx:id="RuleIDColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="Rule ID" visible="false" />
                               <TableColumn fx:id="RuleNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="Rule Name" visible="false" />
                            </columns>
                         </TableView>
@@ -133,7 +133,7 @@
                         <TextFlow fx:id="STIGRuleHeader" textAlignment="CENTER" />
                         <ScrollPane fitToHeight="true" fitToWidth="true">
                            <content>
-                              <TextFlow fx:id="STIGRuleContent" lineSpacing="10.0" />
+                              <TextFlow fx:id="STIGRuleContent" lineSpacing="4.0" />
                            </content>
                         </ScrollPane>
                      </items>

@@ -70,14 +70,12 @@ public class LocalCatalogController implements Initializable{
 
     @FXML
     void UploadSTIG(ActionEvent event) throws IOException {
-    	// TODO - implement functionality to prompt the user to select a file to copy over to the local catalog
     	LocalCatalog.uploadXML(STIGCatalogListView);
     	updateSTIGCatalog();
     }
 
     @FXML
     public void DeleteSTIG(ActionEvent event) {
-    	// TODO - implement functionality to delete the file from the local catalog
     	if (STIGCatalogListView.getSelectionModel().getSelectedItem() != null) {
     		
     		File stigFile = new File(LocalCatalog.catalogPath + STIGCatalogListView.getSelectionModel().getSelectedItem());

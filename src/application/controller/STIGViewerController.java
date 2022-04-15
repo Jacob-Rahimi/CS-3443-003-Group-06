@@ -39,7 +39,7 @@ import javafx.stage.Stage;
 public class STIGViewerController {
 	
 	/**
-	 * The referenceSTIG that is generated from the XML file used to initialize the STIGViewer view
+	 * referenceSTIG is a STIGDocument that is generated from the XML file used to initialize the STIGViewer view
 	 */
 	STIGDocument referenceSTIG;
 	
@@ -105,6 +105,12 @@ public class STIGViewerController {
     @FXML
     private TextFlow STIGRuleContent;
     
+    /**
+     * This is a method to allow functionality of the GoToMainMenu button to switch 
+     * the scene to the MainMenu
+     * @param event this event is from clicking on the button to go to switch the view
+     * @throws IOException when there was an issue loading the fxml file
+     */
     @FXML
     void GoToMainMenu(ActionEvent event) throws IOException {
     	// Load the Main Menu fxml file
@@ -123,6 +129,12 @@ public class STIGViewerController {
 		window.show();
     }
 
+    /**
+     * This is a method to allow functionality of the GoToOnlineCatalog button to switch 
+     * the scene to the OnlineCatalog
+     * @param event this event is from clicking on the button to go to switch the view
+     * @throws IOException when there was an issue loading the fxml file
+     */
     @FXML
     void GoToOnlineCatalog(ActionEvent event) throws IOException {
     	// Load the Online Catalog fxml file
@@ -141,6 +153,12 @@ public class STIGViewerController {
 		window.show();
     }
 
+    /**
+     * This is a method to allow functionality of the GoToLocalCatalog button to switch 
+     * the scene to the LocalCatalog
+     * @param event this event is from clicking on the button to go to switch the view
+     * @throws IOException when there was an issue loading the fxml file
+     */
     @FXML
     void GoToLocalCatalog(ActionEvent event) throws IOException {
     	// Load the Local Catalog fxml file
@@ -238,29 +256,32 @@ public class STIGViewerController {
     		// Group Title
     		Text groupTitleHeader = new Text("Group Title: ");
     		groupTitleHeader.setStyle("-fx-font-weight: bold");
-    		Text groupTitleContent = new Text(selectedRule.getGroupTitle() + "\n");
+    		Text groupTitleContent = new Text(selectedRule.getGroupTitle() + "\n\n");
     		
     		// Rule Title
     		Text ruleTitleHeader = new Text("Rule Title: ");
     		ruleTitleHeader.setStyle("-fx-font-weight: bold");
-    		Text ruleTitleContent = new Text(selectedRule.getRuleTitle() + "\n");
+    		Text ruleTitleContent = new Text(selectedRule.getRuleTitle() + "\n\n");
     		
     		// Discussion
     		Text discussionHeader = new Text("Discussion: ");
     		discussionHeader.setStyle("-fx-font-weight: bold");
-    		Text discussionContent = new Text(selectedRule.getRuleDiscussion() + "\n");
+    		Text discussionContent = new Text(selectedRule.getRuleDiscussion() + "\n\n");
     		
     		// Check Text
     		Text checkTextHeader = new Text("Check Text: ");
     		checkTextHeader.setStyle("-fx-font-weight: bold");
-    		Text checkTextContent = new Text(selectedRule.getCheckText() + "\n");
+    		Text checkTextContent = new Text(selectedRule.getCheckText() + "\n\n");
     		
     		// Fix Text
     		Text fixTextHeader = new Text("Fix Text: ");
     		fixTextHeader.setStyle("-fx-font-weight: bold");
-    		Text fixTextContent = new Text(selectedRule.getFixText() + "\n");
+    		Text fixTextContent = new Text(selectedRule.getFixText() + "\n\n");
     		
     		// CCI
+    		Text CCIHeader = new Text("CCI: ");
+    		CCIHeader.setStyle("-fx-font-weight: bold");
+    		Text CCIContent = new Text(selectedRule.getCCI() + ": " + selectedRule.getCCIContent() );
     		
     		STIGRuleHeader.getChildren().addAll(tempTitle, 
     											vulIDHeader, vulIDContent, ruleIDHeader, ruleIDContent, stigIDHeader, stigIDContent,
@@ -271,7 +292,8 @@ public class STIGViewerController {
     											ruleTitleHeader, ruleTitleContent,
     											discussionHeader, discussionContent,
     											checkTextHeader, checkTextContent,
-    											fixTextHeader, fixTextContent);
+    											fixTextHeader, fixTextContent,
+    											CCIHeader, CCIContent);
     		STIGRuleContent.setStyle("-fx-font-size: 14px");
     	}
     }
@@ -291,7 +313,7 @@ public class STIGViewerController {
     	updateFilteredSTIGRules();
     	
     	// Initialize choice box
-    	FilterField.getItems().addAll( "vulID", "subVulID", "stigID", "severityCat", "groupTitle", "ruleTitle", "ruleDiscussion", "checkText", "fixText", "CCI");
+    	FilterField.getItems().addAll( "vulID", "subVulID", "stigID", "severityCat", "groupTitle", "ruleTitle", "ruleDiscussion", "fixText", "CCI");
     	FilterField.getSelectionModel().select(0);
     	
     }
@@ -337,10 +359,6 @@ public class STIGViewerController {
     					filteredSTIGRules.add(rule);
     					break;
     				}
-    				else if(filter.getField().equals("checkText") && filter.getPattern().matcher(rule.getCheckText()).matches() ) {
-    					filteredSTIGRules.add(rule);
-    					break;
-    				}
     				else if(filter.getField().equals("fixText") && filter.getPattern().matcher(rule.getFixText()).matches() ) {
     					filteredSTIGRules.add(rule);
     					break;
@@ -373,15 +391,14 @@ public class STIGViewerController {
     		else if( rule.getSeverityCat().equals("CAT II") ) catII++; 
     		else if( rule.getSeverityCat().equals("CAT III") ) catIII++;
     	}
-    	
     	// Update the Rule Severity Chart
     	ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
     	if( catI > 0 ) 
-    		pieChartData.add(new PieChart.Data("CAT I (High)", catI));
+    		pieChartData.add(new PieChart.Data("CAT I (High) - " + catI, catI));
     	if( catII > 0 )
-    		pieChartData.add(new PieChart.Data("CAT II (Medium)", catII));
+    		pieChartData.add(new PieChart.Data("CAT II (Medium) - " + catII, catII));
     	if( catIII > 0 )
-    		pieChartData.add(new PieChart.Data("CAT III (Low)", catIII));
+    		pieChartData.add(new PieChart.Data("CAT III (Low) - " + catIII, catIII));
     	RuleSeverityChart.setData(pieChartData);
     	RuleSeverityChart.setLegendSide(Side.BOTTOM);
     	RuleSeverityChart.setLegendVisible(true);
