@@ -29,21 +29,19 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
+/**
+ * STIGViewerController is the controller for the STIGViewer view.
+ * It provides functionality for filtering STIGRules, displaying
+ * severity distribution of filtered STIGRules, and viewing information
+ * of a STIGRule.
+ */
 public class STIGViewerController {
 	
+	/**
+	 * The referenceSTIG that is generated from the XML file used to initialize the STIGViewer view
+	 */
 	STIGDocument referenceSTIG;
 	
-	PropertyValueFactory<STIGRule, String> vulID = new PropertyValueFactory<STIGRule, String>("vulID");
-	PropertyValueFactory<STIGRule, String> subVulID = new PropertyValueFactory<STIGRule, String>("subVulID");
-	PropertyValueFactory<STIGRule, String> stigID = new PropertyValueFactory<STIGRule, String>("stigID");
-	PropertyValueFactory<STIGRule, String> severityCat = new PropertyValueFactory<STIGRule, String>("severityCat");
-	PropertyValueFactory<STIGRule, String> groupTitle = new PropertyValueFactory<STIGRule, String>("groupTitle");
-	PropertyValueFactory<STIGRule, String> ruleTitle = new PropertyValueFactory<STIGRule, String>("ruleTitle");
-	PropertyValueFactory<STIGRule, String> ruleDiscussion = new PropertyValueFactory<STIGRule, String>("ruleDiscussion");
-	PropertyValueFactory<STIGRule, String> checkText = new PropertyValueFactory<STIGRule, String>("checkText");
-	PropertyValueFactory<STIGRule, String> fixText = new PropertyValueFactory<STIGRule, String>("fixText");
-	PropertyValueFactory<STIGRule, String> CCI = new PropertyValueFactory<STIGRule, String>("CCI");
-
 	@FXML
     private AnchorPane mainPane;
 	
@@ -107,7 +105,65 @@ public class STIGViewerController {
     private TextFlow STIGRuleContent;
     
     @FXML
-    void AddFilter(ActionEvent event) {
+    void GoToMainMenu(ActionEvent event) throws IOException {
+    	// Load the Main Menu fxml file
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("../../fxml/MainMenu.fxml"));
+    	mainPane = loader.load();
+    	
+    	// Load the scene
+		Scene scene = new Scene(mainPane);
+		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		window.setScene(scene);
+		window.setMaximized(false);
+		window.setWidth(600);
+		window.setHeight(439);
+		window.setResizable(false);
+		window.setTitle("Main Menu");
+		window.show();
+    }
+
+    @FXML
+    void GoToOnlineCatalog(ActionEvent event) throws IOException {
+    	// Load the Online Catalog fxml file
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("../../fxml/OnlineCatalog.fxml"));
+    	mainPane = loader.load();
+    	
+    	// Load the scene
+		Scene scene = new Scene(mainPane);
+		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		window.setScene(scene);
+		window.setMaximized(false);
+		window.setWidth(600);
+		window.setHeight(439);
+		window.setResizable(false);
+		window.setTitle("Online Catalog");
+		window.show();
+    }
+
+    @FXML
+    void GoToLocalCatalog(ActionEvent event) throws IOException {
+    	// Load the Local Catalog fxml file
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("../../fxml/LocalCatalog.fxml"));
+    	mainPane = loader.load();
+    	
+    	// Load the scene
+		Scene scene = new Scene(mainPane);
+		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		window.setScene(scene);
+		window.setMaximized(false);
+		window.setWidth(600);
+		window.setHeight(439);
+		window.setResizable(false);
+		window.setTitle("Local Catalog");
+		window.show();
+    }
+    
+    /**
+     * Adds a STIGFilter generated from the contents of FilterField, MatachButton, and FilterTextField
+     * to the FilterTable, and updates the displayed filteredSTIGRules.
+     */
+    @FXML
+    void AddFilter() {
     	// Detect if there is a valid selected in the FilteredField and the FilterTextArea
     	if(FilterField.getSelectionModel().getSelectedItem() != null && FilterTextField.getText() != null ) {
     		STIGFilter filterRow = new STIGFilter(FilterField.getSelectionModel().getSelectedItem(), (MatchButton.isSelected() ? "Matches" : "Contains"), FilterTextField.getText());
@@ -117,10 +173,13 @@ public class STIGViewerController {
     		FilterTextColumn.setCellValueFactory( new PropertyValueFactory<STIGFilter, String>("text") );
     		
     		FilterTable.getItems().add(filterRow);
-    		updateFilteredSTIG();
+    		updateFilteredSTIGRules();
     	}
     }
 
+    /**
+     * Deletes the selected STIGFilter rule from the FilterTable, and updates the displayed filteredSTIGRules
+     */
     @FXML
     void DeleteFilter() {
     	// Detect if an filter is available and selected
@@ -128,10 +187,14 @@ public class STIGViewerController {
     		// Delete the filter
     		FilterTable.getItems().remove(FilterTable.getSelectionModel().getSelectedItem());
     		// Update the filtered STIG
-    		updateFilteredSTIG();
+    		updateFilteredSTIGRules();
     	}
     }
     
+    /**
+     * Displays the STIGRule selected from the STIGRuleTable
+     * @param event the MouseEvent which is used to verify that the user double clicked on a row which changes the seleected row
+     */
     @FXML
     void displaySelectedRule(MouseEvent event) {
     	// Ensure that the table was double clicked to change the selected rule
@@ -211,64 +274,20 @@ public class STIGViewerController {
     		STIGRuleContent.setStyle("-fx-font-size: 14px");
     	}
     }
-
-    @FXML
-    void GoToMainMenu(ActionEvent event) throws IOException {
-    	// Load the Main Menu fxml file
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("../../fxml/MainMenu.fxml"));
-    	mainPane = loader.load();
-    	
-    	// Load the scene
-		Scene scene = new Scene(mainPane);
-		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		window.setScene(scene);
-		window.setWidth(600);
-		window.setHeight(439);
-		window.setResizable(false);
-		window.setTitle("Main Menu");
-		window.show();
-    }
-
-    @FXML
-    void GoToOnlineCatalog(ActionEvent event) throws IOException {
-    	// Load the Online Catalog fxml file
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("../../fxml/OnlineCatalog.fxml"));
-    	mainPane = loader.load();
-    	
-    	// Load the scene
-		Scene scene = new Scene(mainPane);
-		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		window.setScene(scene);
-		window.setWidth(600);
-		window.setHeight(439);
-		window.setResizable(false);
-		window.setTitle("Online Catalog");
-		window.show();
-    }
-
-    @FXML
-    void GoToLocalCatalog(ActionEvent event) throws IOException {
-    	// Load the Local Catalog fxml file
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("../../fxml/LocalCatalog.fxml"));
-    	mainPane = loader.load();
-    	
-    	// Load the scene
-		Scene scene = new Scene(mainPane);
-		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		window.setScene(scene);
-		window.setWidth(600);
-		window.setHeight(439);
-		window.setResizable(false);
-		window.setTitle("Local Catalog");
-		window.show();
-    }
     
+    /**
+     * This method initializes the STIGViewer Controller by loading the referenceSTIG, displaying the STIGRules, and adding the FilterField items.
+     * @param stigFileName the file to be read to initialize the referenceSTIG
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     * @throws IOException
+     */
     void initializeSTIGViewer( String stigFileName ) throws ParserConfigurationException, SAXException, IOException {
     	// Populate the referenceSTIG and the filteredSTIG (filtered STIG is initialized with no filter in place)
     	referenceSTIG = new STIGDocument( stigFileName );
     	
     	// Update Filtered STIG Data
-    	updateFilteredSTIG();
+    	updateFilteredSTIGRules();
     	
     	// Initialize choice box
     	FilterField.getItems().addAll( "vulID", "subVulID", "stigID", "severityCat", "groupTitle", "ruleTitle", "ruleDiscussion", "checkText", "fixText", "CCI");
@@ -276,7 +295,12 @@ public class STIGViewerController {
     	
     }
     
-    void updateFilteredSTIG() {
+    /**
+     * Generates a STIGRule ArrayList with only STIGRules that match the filters, 
+     * and uses this STIGRule ArrayList to update the STIG Rule Table and Rule Severity Chart.
+     */
+    void updateFilteredSTIGRules() {
+    	// Generate the filteredSTIGRules ArrayList
     	ArrayList<STIGRule> filteredSTIGRules;
     	if( FilterTable.getItems().size() == 0) 
     		filteredSTIGRules = referenceSTIG.getStigRuleArrayList();
@@ -329,13 +353,17 @@ public class STIGViewerController {
     	}
     
     	// Update STIG Rule Table
-    	VulnIDColumn.setCellValueFactory(vulID);
-        STIGIDColumn.setCellValueFactory(stigID);
-        RuleIDColumn.setCellValueFactory(subVulID);
-        RuleNameColumn.setCellValueFactory(groupTitle);
+    	VulnIDColumn.setCellValueFactory(new PropertyValueFactory<STIGRule, String>("vulID"));
+        STIGIDColumn.setCellValueFactory(new PropertyValueFactory<STIGRule, String>("stigID"));
+        RuleIDColumn.setCellValueFactory(new PropertyValueFactory<STIGRule, String>("subVulID"));
+        RuleNameColumn.setCellValueFactory(new PropertyValueFactory<STIGRule, String>("groupTitle"));
     	STIGRuleTable.getItems().setAll( filteredSTIGRules );
     	
-    	// Collect Data for Pie Chart
+    	// Clear the displayed Rule
+    	STIGRuleHeader.getChildren().clear();
+		STIGRuleContent.getChildren().clear();
+    	
+    	// Collect Data for the Rule Severity Chart
     	int catI = 0;
     	int catII = 0;
     	int catIII = 0;
@@ -345,7 +373,7 @@ public class STIGViewerController {
     		else if( rule.getSeverityCat().equals("CAT III") ) catIII++;
     	}
     	
-    	// Update Pie Chart
+    	// Update the Rule Severity Chart
     	ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
     	if( catI > 0 ) 
     		pieChartData.add(new PieChart.Data("CAT I (High)", catI));

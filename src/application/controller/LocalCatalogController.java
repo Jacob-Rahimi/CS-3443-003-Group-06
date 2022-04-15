@@ -6,6 +6,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import application.model.LocalCatalog;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,27 +32,25 @@ public class LocalCatalogController implements Initializable{
     private ListView<String> STIGCatalogListView;
 
     @FXML
-    void GoToSTIGViewer(ActionEvent event) {
-    	try {
-    		// Load the STIGViewer fxml file
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("../../fxml/STIGViewer.fxml"));
-    		mainPane = loader.load();
-    	
-    		// Load the controller and initialize the STIGDocument with the selected STIG
-    		STIGViewerController controller = loader.getController();
-    		controller.initializeSTIGViewer("I:\\test\\U_MS_Windows_10_STIG_V2R3_Manual-xccdf.xml");
-    	
-    		// Load the scene
-    		Scene scene = new Scene(mainPane);
-    		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+    void GoToSTIGViewer(ActionEvent event) throws IOException, ParserConfigurationException, SAXException {
+    	if(STIGCatalogListView.getSelectionModel().getSelectedItem() != null) {
+	    	// Load the STIGViewer fxml file
+	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("../../fxml/STIGViewer.fxml"));
+	    	mainPane = loader.load();
+	    	 		
+	    	// Load the controller and initialize the STIGDocument with the selected STIG
+	    	STIGViewerController controller = loader.getController();
+	    	controller.initializeSTIGViewer("src/data/" + STIGCatalogListView.getSelectionModel().getSelectedItem());
+	    	
+	    	// Load the scene
+	    	Scene scene = new Scene(mainPane);
+	    	Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 			window.setScene(scene);
 			window.setTitle("STIG Viewer");
 			window.setResizable(true);
 			window.setWidth(1200);
 			window.setHeight(800);
 			window.show();
-    	} catch( Exception e ) {
-    		e.printStackTrace();
     	}
     }
 
