@@ -99,5 +99,10 @@ public class LocalCatalogController implements Initializable{
 	
 	}
     
-	
+	void updateSTIGCatalog() {
+		ArrayList<String> xmlList = LocalCatalog.readList();
+		ObservableList<String> xml = FXCollections.observableArrayList(xmlList);
+		STIGCatalogListView.setItems(xml);
+		xmlList.clear();
+	}
 }
