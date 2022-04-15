@@ -2,6 +2,7 @@ package application.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -14,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
@@ -89,6 +91,25 @@ public class MainMenuController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		CurrentFilePath.setText(LocalCatalog.catalogPath);
+		
+		// Checks the connection status of https://public.cyber.mil/stigs/
+		try {
+			URL url = new URL("https://public.cyber.mil/stigs/");
+			HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+			int responseCode = huc.getResponseCode();
+			
+			if (responseCode == 404) { // Sets status icon to Red if unavailable
+				ConnectionStatus.setText("Server unavailable");
+				StatusIcon.setFill(Color.RED);
+			}
+			else {
+				ConnectionStatus.setText("Server is available");
+				StatusIcon.setFill(Color.web("0x1fff66"));
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
 	}
     
     

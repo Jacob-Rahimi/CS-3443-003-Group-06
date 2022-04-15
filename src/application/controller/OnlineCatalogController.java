@@ -2,6 +2,7 @@ package application.controller;
 
 import java.io.IOException;
 
+import application.model.OnlineCatalog;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,10 +17,10 @@ import javafx.stage.Stage;
 public class OnlineCatalogController {
 
     @FXML
-    private ListView<?> DownloadList;
+    private ListView<String> DownloadList;
 
     @FXML
-    private ListView<?> OnlineCatalogList;
+    private ListView<String> OnlineCatalogList;
 
     @FXML
     private ProgressIndicator DownloadProgressBar;
@@ -29,7 +30,13 @@ public class OnlineCatalogController {
 
     @FXML
     private AnchorPane mainPane;
+    
+    private OnlineCatalog oc = new OnlineCatalog();
 
+    public void initialize() throws IOException {
+		oc.loadOnlineCatalog(OnlineCatalogList);
+	}
+    
     @FXML
     void GoToMainMenu(ActionEvent event) throws IOException {
     	// Load the Main Menu fxml file
@@ -51,12 +58,12 @@ public class OnlineCatalogController {
 
     @FXML
     void AddToDownloadList(ActionEvent event) {
-
+    	oc.queueFiles(OnlineCatalogList, DownloadList);
     }
 
     @FXML
     void Download(ActionEvent event) {
-
+    	oc.downloadFiles(DownloadList);
     }
 
     @FXML
