@@ -43,7 +43,7 @@ public class LocalCatalogController implements Initializable{
 	    	 		
 	    	// Load the controller and initialize the STIGDocument with the selected STIG
 	    	STIGViewerController controller = loader.getController();
-	    	controller.initializeSTIGViewer(new File(LocalCatalog.catalogPath + STIGCatalogListView.getSelectionModel().getSelectedItem()) );
+	    	controller.initializeSTIGViewer(new File(LocalCatalog.catalogPath + "\\" + STIGCatalogListView.getSelectionModel().getSelectedItem()) );
 	    	
 	    	// Load the scene
 	    	Scene scene = new Scene(mainPane);
@@ -84,7 +84,7 @@ public class LocalCatalogController implements Initializable{
     public void DeleteSTIG(ActionEvent event) {
     	if (STIGCatalogListView.getSelectionModel().getSelectedItem() != null) {
     		
-    		File stigFile = new File(LocalCatalog.catalogPath + STIGCatalogListView.getSelectionModel().getSelectedItem());
+    		File stigFile = new File(LocalCatalog.catalogPath + "\\" + STIGCatalogListView.getSelectionModel().getSelectedItem());
     		LocalCatalog.deleteSTIGs(stigFile);
     		updateSTIGCatalog();
     	}
