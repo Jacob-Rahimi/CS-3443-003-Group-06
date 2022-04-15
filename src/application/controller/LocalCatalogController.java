@@ -24,13 +24,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class LocalCatalogController implements Initializable{
-
+	/* The LocalCatalogController is the controller for the LocalCatalog.
+	 * It provides functionality to browse your own local folders to upload, delete and view .xml files
+	 * */
     @FXML
     private AnchorPane mainPane;
-
+    // ListView to display the xml files
     @FXML
     private ListView<String> STIGCatalogListView;
-
+    
+    
     @FXML
     void GoToSTIGViewer(ActionEvent event) throws IOException, ParserConfigurationException, SAXException {
     	if(STIGCatalogListView.getSelectionModel().getSelectedItem() != null) {
@@ -73,7 +76,8 @@ public class LocalCatalogController implements Initializable{
     	LocalCatalog.uploadXML(STIGCatalogListView);
     	updateSTIGCatalog();
     }
-
+    
+    
     @FXML
     public void DeleteSTIG(ActionEvent event) {
     	if (STIGCatalogListView.getSelectionModel().getSelectedItem() != null) {
