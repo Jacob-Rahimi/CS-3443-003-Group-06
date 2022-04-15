@@ -72,20 +72,7 @@ public class LocalCatalogController implements Initializable{
     @FXML
     void UploadSTIG(ActionEvent event) {
     	// TODO - implement functionality to prompt the user to select a file to copy over to the local catalog
-    	FileChooser fc = new FileChooser();
-    	    	
-    	fc.getExtensionFilters().addAll(new ExtensionFilter("XML Files", "*.xml"));
-    	
-    	File selectedFile = fc.showOpenDialog(null);
-    	
-    	if (selectedFile != null) {
-    		STIGCatalogListView.getItems().add(selectedFile.getName());
-    		
-    	}
-    	else {
-    		System.out.println("ERROR: file was not uploaded");
-    	}
-    	
+    	LocalCatalog.uploadXML(STIGCatalogListView);
     	
     }
 
