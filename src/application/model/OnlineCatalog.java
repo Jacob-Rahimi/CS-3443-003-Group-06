@@ -1,7 +1,6 @@
 package application.model;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -101,14 +100,12 @@ public class OnlineCatalog {
 				end = s2.indexOf("\">");
 				XMLFileList.add("https://www.stigviewer.com/stig/" + s2.substring(begin, end)); // Creates and stores each full XML link
 				doc = Jsoup.connect(XMLFileList.get(i)).get();
-				links = doc.select("Benchmark"); // Targets Benchmark tag
-				String homePath = System.getProperty("user.home"); // Creates path to store XML file in Downloads folder
-				File file = new File(homePath + "/Downloads/" + filestbd.getItems().get(i) + ".xml");
+				File file = new File(LocalCatalog.catalogPath + "\\" + filestbd.getItems().get(i) + ".xml");
+				
 				// Downloads XML file
 				FileWriter fw = new FileWriter(file);
 				PrintWriter pw = new PrintWriter(fw);
-				FileInputStream fis = new FileInputStream(file);
-				pw.println(links);
+				pw.println(doc);
 				pw.close();
 			}
 			// Clearing "Files to be Downloaded" list after files finish downloading.
