@@ -1,8 +1,10 @@
 package application.controller;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -21,6 +23,17 @@ import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
+/**
+ * application.controller.MainMenuController is the controller for the MainMenu view.
+ * It provides functionality for displaying the connection status to
+ * the download website for the online catalog and the current path of the
+ * local catalog directory. Additionally, it allows the user to switch to
+ * the online catalog view, switch to the local catalog view, change the
+ * local catalog path, and open the GitHub page for more information about
+ * the project.
+ * 
+ * @author Brandon Chung, Hunter Drummond, Leon Le, Jacob Rahimi 
+ */
 public class MainMenuController implements Initializable {
 	
 	@FXML
@@ -38,6 +51,11 @@ public class MainMenuController implements Initializable {
     @FXML
     private Label CurrentFilePath;
 
+    /**
+     * This is a method to allow functionality of the GoToOnlineCatalog button to switch the scene to the OnlineCatalog.
+     * @param event - the event from clicking on the button which is used to reference the scene to switch the view
+     * @throws IOException - errors when there was an issue loading the fxml file
+     */
     @FXML
     void GoToOnlineCatalog(ActionEvent event) throws IOException {
     	// Load the Online Catalog fxml file
@@ -52,6 +70,12 @@ public class MainMenuController implements Initializable {
 		window.show();
     }
 
+    /**
+     * This is a method to allow functionality of the GoToLocalCatalog button to switch 
+     * the scene to the LocalCatalog
+     * @param event - the event from clicking on the button which is used to reference the scene to switch the view
+     * @throws IOException - errors when there was an issue loading the fxml file
+     */
     @FXML
     void GoToLocalCatalog(ActionEvent event) throws IOException {
     	// Load the Local Catalog fxml file
@@ -66,30 +90,43 @@ public class MainMenuController implements Initializable {
 		window.show();
     }
 
+    /**
+     * This is a method that prompts the user to change the local catalog path to a folder
+     * on their system. When a new path is selected, it updates the local catalog path.
+     */
     @FXML
-    void ChangeFilePath(ActionEvent event) {
-    	// TODO: Implementing settings (just for local catalog directory)
+    void ChangeFilePath() {
     	DirectoryChooser folderChooser = new DirectoryChooser();
     	File file = folderChooser.showDialog(null);
     	if (file != null) {
     		String absolFile = file.getAbsolutePath();
     		LocalCatalog.catalogPath = absolFile;
-    		CurrentFilePath.setText(LocalCatalog.catalogPath);
+    		CurrentFilePath.setText("Current Catalog Path: " + LocalCatalog.catalogPath);
     	}
     	else{
     		System.out.println("ERROR: No directory was selected.");
     	}
     }
 
+    /**
+     * This is a method that will launch the project's GitHub page to allow the user to gather more
+     * information about the application through the README.
+     * @throws IOException - errors when there was an issue opening the github page.
+     */
     @FXML
-    void PromptAbout(ActionEvent event) {
-    	// TODO: Implement about page (just for GitHub page)
+    void PromptAbout() throws IOException {
+    	Desktop.getDesktop().browse(URI.create("https://github.com/Jikkou9/CS-3443-003-Group-06"));
     }
 
+	/**
+	 *This method is ran on the initialization of the MainMenu view and it displays the current
+	 *local catalog path as well as checks the connection status to the download website for 
+	 *the online catalog.
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		CurrentFilePath.setText(LocalCatalog.catalogPath);
+		// Display the current local catalog path
+		CurrentFilePath.setText("Current Catalog Path: " + LocalCatalog.catalogPath);
 		
 		// Checks the connection status of https://public.cyber.mil/stigs/
 		try {
@@ -97,7 +134,7 @@ public class MainMenuController implements Initializable {
 			HttpURLConnection huc = (HttpURLConnection) url.openConnection();
 			int responseCode = huc.getResponseCode();
 			
-			if (responseCode == 404) { // Sets status icon to Red if unavailable
+			if (responseCode != 200) { // Sets status icon to Red if unavailable
 				ConnectionStatus.setText("Server unavailable");
 				StatusIcon.setFill(Color.RED);
 			}
@@ -106,6 +143,8 @@ public class MainMenuController implements Initializable {
 				StatusIcon.setFill(Color.web("0x1fff66"));
 			}
 		} catch (Exception e) {
+			ConnectionStatus.setText("There was an issue querying the server.");
+			StatusIcon.setFill(Color.BLACK);
 			System.out.println(e);
 		}
 		

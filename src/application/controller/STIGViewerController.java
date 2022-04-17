@@ -31,10 +31,11 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 /**
- * STIGViewerController is the controller for the STIGViewer view.
- * It provides functionality for filtering STIGRules, displaying
- * severity distribution of filtered STIGRules, and viewing information
- * of a STIGRule.
+ * application.controller.STIGViewerController is the controller for the STIGViewer view.
+ * It provides functionality for filtering STIGRules, displaying severity distribution of 
+ * filtered STIGRules, and viewing information of a STIGRule.
+ * 
+ * @author Jacob Rahimi
  */
 public class STIGViewerController {
 	
@@ -108,8 +109,8 @@ public class STIGViewerController {
     /**
      * This is a method to allow functionality of the GoToMainMenu button to switch 
      * the scene to the MainMenu
-     * @param event this event is from clicking on the button to go to switch the view
-     * @throws IOException when there was an issue loading the fxml file
+     * @param event - the event from clicking on the button which is used to reference the scene to switch the view
+     * @throws IOException - errors when there was an issue loading the fxml file
      */
     @FXML
     void GoToMainMenu(ActionEvent event) throws IOException {
@@ -132,8 +133,8 @@ public class STIGViewerController {
     /**
      * This is a method to allow functionality of the GoToOnlineCatalog button to switch 
      * the scene to the OnlineCatalog
-     * @param event this event is from clicking on the button to go to switch the view
-     * @throws IOException when there was an issue loading the fxml file
+     * @param event - the event from clicking on the button which is used to reference the scene to switch the view
+     * @throws IOException - errors when there was an issue loading the fxml file
      */
     @FXML
     void GoToOnlineCatalog(ActionEvent event) throws IOException {
@@ -156,8 +157,8 @@ public class STIGViewerController {
     /**
      * This is a method to allow functionality of the GoToLocalCatalog button to switch 
      * the scene to the LocalCatalog
-     * @param event this event is from clicking on the button to go to switch the view
-     * @throws IOException when there was an issue loading the fxml file
+     * @param event - the event from clicking on the button which is used to reference the scene to switch the view
+     * @throws IOException - errors when there was an issue loading the fxml file
      */
     @FXML
     void GoToLocalCatalog(ActionEvent event) throws IOException {
@@ -212,10 +213,13 @@ public class STIGViewerController {
     
     /**
      * Displays the STIGRule selected from the STIGRuleTable
-     * @param event the MouseEvent which is used to verify that the user double clicked on a row which changes the seleected row
+     * @param event - the MouseEvent which is used to verify that the user double clicked on a row which changes the selected row
+     * @throws IOException throws an error if there was an issue collecting the CCI content
+     * @throws SAXException throws an error if there was an issue collecting the CCI content
+     * @throws ParserConfigurationException throws an error if there was an issue collecting the CCI content
      */
     @FXML
-    void displaySelectedRule(MouseEvent event) {
+    void displaySelectedRule(MouseEvent event) throws ParserConfigurationException, SAXException, IOException {
     	// Ensure that the table was double clicked to change the selected rule
     	if( event.getClickCount() == 2 ) {
     		// Get selected STIGRule
@@ -300,10 +304,10 @@ public class STIGViewerController {
     
     /**
      * This method initializes the STIGViewer Controller by loading the referenceSTIG, displaying the STIGRules, and adding the FilterField items.
-     * @param stigFileName the file to be read to initialize the referenceSTIG
-     * @throws ParserConfigurationException
-     * @throws SAXException
-     * @throws IOException
+     * @param stigFileName - the file to be read to initialize the referenceSTIG
+     * @throws ParserConfigurationException - errors when there was issue in parsing the file
+     * @throws SAXException - errors when there was an issue reading/parsing the file
+     * @throws IOException - errors when there was an issue reading form the file
      */
     void initializeSTIGViewer( File stigFile ) throws ParserConfigurationException, SAXException, IOException {
     	// Populate the referenceSTIG and the filteredSTIG (filtered STIG is initialized with no filter in place)

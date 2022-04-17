@@ -10,7 +10,16 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 
 
+/**
+ * Application.Main is the class to launch the main application
+ * @author Jacob Rahimi
+ */
 public class Main extends Application {
+	/**
+	 * This method specifies the parameters of the initial AnchorPane
+	 * and Scene to start from, and it utilizes the MainMenu view as 
+	 * its starting point.
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -26,6 +35,10 @@ public class Main extends Application {
 		}
 	}
 	
+	/**
+	 * This is the main method to launch the java application.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

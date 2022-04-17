@@ -1,24 +1,29 @@
 package application.model;
 
 import java.util.ArrayList;
-
+import java.io.*;
 // XML-related packages
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
-
 import javax.xml.parsers.*;
-import java.io.*;
 
+/**
+ * application.model.STIGDocument is the class that is used to represent 
+ * the variables that are collected from a STIG document, such as the 
+ * STIG's title, description, and the list of rules that are included 
+ * in the document.
+ * @author Jacob Rahimi
+ */
 public class STIGDocument {
 	// Header Information	
-	public String stigTitle;
-	public String stigDescription;
+	private String stigTitle;
+	private String stigDescription;
 	// Main Information
-	ArrayList<STIGRule> stigRuleArrayList = new ArrayList<STIGRule>();
+	private ArrayList<STIGRule> stigRuleArrayList = new ArrayList<STIGRule>();
 	
 	/**
 	 * This constructor assigns the object's variables based on the provided fileName argument
-	 * @param stigFileName This is the filename of the XML STIG file that will be read from to assign the object's variables
+	 * @param stigFileName - the file of the XML STIG file that will be read from to assign the object's variables
 	 * @throws ParserConfigurationException throws an error if there was an error parsing the file
 	 * @throws IOException throws an error if there was an issue reading the file
 	 * @throws SAXException throws an error if there was a SAX error or warning
@@ -58,8 +63,6 @@ public class STIGDocument {
 			
 	}
 	
-	
-	
 	// Getter and setters
 	/**
 	 * A getter method for the object's stigTitle variable
@@ -70,7 +73,7 @@ public class STIGDocument {
 	}
 	/**
 	 * A setter method for the object's stigTitle variable
-	 * @param stigTitle the String to be used for the object's stigTitle variable
+	 * @param stigTitle - the String to be used for the object's stigTitle variable
 	 */
 	public void setStigTitle(String stigTitle) {
 		this.stigTitle = stigTitle;
@@ -85,7 +88,7 @@ public class STIGDocument {
 	}
 	/**
 	 * A setter method for the object's stigDescription variable
-	 * @param stigDescription the String to be used for the object's stigDescription variable
+	 * @param stigDescription - the String to be used for the object's stigDescription variable
 	 */
 	public void setStigDescription(String stigDescription) {
 		this.stigDescription = stigDescription;
@@ -100,7 +103,7 @@ public class STIGDocument {
 	}
 	/**
 	 * A setter method for the object's stigRuleArrayList ArrayList of STIGRules
-	 * @param stigRuleArrayList the ArrayList of STIGRules to be used for the object's stigRuleArrayList
+	 * @param stigRuleArrayList - the ArrayList of STIGRules to be used for the object's stigRuleArrayList
 	 */
 	public void setStigRuleArrayList(ArrayList<STIGRule> stigRuleArrayList) {
 		this.stigRuleArrayList = stigRuleArrayList;
