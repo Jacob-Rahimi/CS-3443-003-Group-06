@@ -128,27 +128,31 @@ public class MainMenuController implements Initializable {
 		// Display the current local catalog path
 		CurrentFilePath.setText("Current Catalog Path: " + LocalCatalog.catalogPath);
 		
-		// Checks the connection status of https://public.cyber.mil/stigs/
-		try {
-			URL url = new URL("https://public.cyber.mil/stigs/");
-			HttpURLConnection huc = (HttpURLConnection) url.openConnection();
-			int responseCode = huc.getResponseCode();
-			
-			if (responseCode != 200) { // Sets status icon to Red if unavailable
-				ConnectionStatus.setText("Server unavailable");
-				StatusIcon.setFill(Color.RED);
+		//Establish a thread to run this process in the background to reduce wait times
+		new Thread() {
+			public void run() {
+				// Checks the connection status of https://public.cyber.mil/stigs/
+				try {
+					ConnectionStatus.setText("Currently querrying the server");
+					StatusIcon.setFill(Color.WHITE);
+					URL url = new URL("https://public.cyber.mil/stigs/");
+					HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+					int responseCode = huc.getResponseCode();
+					
+					if (responseCode != 200) { // Sets status icon to Red if unavailable
+						ConnectionStatus.setText("Server unavailable");
+						StatusIcon.setFill(Color.RED);
+					}
+					else {
+						ConnectionStatus.setText("Server is available");
+						StatusIcon.setFill(Color.web("0x1fff66"));
+					}
+				} catch (Exception e) {
+					ConnectionStatus.setText("There was an issue querying the server.");
+					StatusIcon.setFill(Color.BLACK);
+					System.out.println(e);
+				}
 			}
-			else {
-				ConnectionStatus.setText("Server is available");
-				StatusIcon.setFill(Color.web("0x1fff66"));
-			}
-		} catch (Exception e) {
-			ConnectionStatus.setText("There was an issue querying the server.");
-			StatusIcon.setFill(Color.BLACK);
-			System.out.println(e);
-		}
-		
-	}
-    
-    
+		}.start();
+	} 
 }
