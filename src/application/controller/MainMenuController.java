@@ -115,7 +115,7 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     void PromptAbout() throws IOException {
-    	Desktop.getDesktop().browse(URI.create("https://github.com/Jikkou9/CS-3443-003-Group-06"));
+    	Desktop.getDesktop().browse(URI.create("https://github.com/Jacob-Rahimi/CS-3443-003-Group-06"));
     }
 
 	/**
