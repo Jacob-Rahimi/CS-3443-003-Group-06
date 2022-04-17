@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -8,32 +14,62 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainMenuController">
+<AnchorPane fx:id="mainPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainMenuController">
    <children>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Text layoutX="166.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Command Cyber">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Command Cyber">
+               <font>
+                  <Font size="36.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Open STIG v1.0">
                <font>
                   <Font size="36.0" />
                </font>
             </Text>
-            <Text layoutX="178.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Open STIG v1.0">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Text>
-            <Button layoutX="252.0" layoutY="173.0" mnemonicParsing="false" onAction="#GoToOnlineCatalog" text="Online Catalog" />
-            <Text fx:id="ConnectionStatusLabel" layoutX="165.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Connection status to https://public.cyber.mil/stigs/" />
-            <Text fx:id="ConnectionStatus" layoutX="240.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Server is available" />
-            <Circle fx:id="StatusIcon" fill="#1fff66" layoutX="345.0" layoutY="226.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
-            <Button layoutX="256.0" layoutY="246.0" mnemonicParsing="false" onAction="#GoToLocalCatalog" text="Local Catalog" />
-            <Button layoutX="236.0" layoutY="286.0" mnemonicParsing="false" onAction="#ChangeFilePath" text="Change Catalog Path" />
-            <Button layoutX="274.0" layoutY="325.0" mnemonicParsing="false" onAction="#PromptAbout" text="About" />
-            <Label fx:id="CurrentFilePath" layoutX="372.0" layoutY="286.0" prefHeight="25.0" prefWidth="227.0" text="Label">
+            <Text fx:id="ConnectionStatusLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Connection status to https://public.cyber.mil/stigs/">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin></Text>
+            <HBox alignment="TOP_CENTER">
+               <children>
+                  <Text fx:id="ConnectionStatus" strokeType="OUTSIDE" strokeWidth="0.0" text="[Server Status Text]" />
+                  <Circle fx:id="StatusIcon" radius="7.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets left="5.0" top="2.0" />
+                     </HBox.margin>
+                  </Circle>
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#GoToOnlineCatalog" text="Online Catalog">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin></Button>
+            <Button mnemonicParsing="false" onAction="#GoToLocalCatalog" text="Local Catalog">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin></Button>
+            <Label fx:id="CurrentFilePath" text="Label">
                <font>
                   <Font size="10.0" />
-               </font></Label>
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin></Label>
+            <Button mnemonicParsing="false" onAction="#ChangeFilePath" text="Change Catalog Path">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin></Button>
+            <Button mnemonicParsing="false" onAction="#PromptAbout" text="About">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin></Button>
+            <HBox prefHeight="100.0" prefWidth="200.0" />
          </children>
-      </Pane>
+      </VBox>
    </children>
 </AnchorPane>
