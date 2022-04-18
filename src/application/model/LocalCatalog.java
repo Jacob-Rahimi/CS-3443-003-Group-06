@@ -26,7 +26,7 @@ public class LocalCatalog {
 	
 	// reads and calls on to enumerate to create that arraylist as well. Prints out the arrayList in the console and returns the array of STIGS.
 	/**
-	 * @return , reutns teh array of stigs after reading in the catalogPath and creating an arraylist of the STIGS in the catalog path.
+	 * @return , returns the array of STIGs after reading in the catalogPath and creating an arraylist of the STIGS in the catalog path.
 	 */
 	public static ArrayList<String> readList(){
 		File catalogLocation = new File(catalogPath);

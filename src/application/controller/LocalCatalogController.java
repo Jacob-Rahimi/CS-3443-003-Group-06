@@ -92,7 +92,7 @@ public class LocalCatalogController implements Initializable{
      * @throws IOException throws an exception if there is an issue loading in the STIG.
      */
     @FXML
-    void UploadSTIG(ActionEvent event) throws IOException {
+    void UploadSTIG() throws IOException {
     	LocalCatalog.uploadXML(STIGCatalogListView);
     	updateSTIGCatalog();
     }
@@ -102,9 +102,8 @@ public class LocalCatalogController implements Initializable{
      * @param event takes in the event when the delete button is pressed.
      */
     @FXML
-    public void DeleteSTIG(ActionEvent event) {
+    public void DeleteSTIG() {
     	if (STIGCatalogListView.getSelectionModel().getSelectedItem() != null) {
-    		
     		File stigFile = new File(LocalCatalog.catalogPath + "\\" + STIGCatalogListView.getSelectionModel().getSelectedItem());
     		LocalCatalog.deleteSTIGs(stigFile);
     		updateSTIGCatalog();
