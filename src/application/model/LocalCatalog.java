@@ -31,10 +31,12 @@ public class LocalCatalog {
 	public static ArrayList<String> readList(){
 		File catalogLocation = new File(catalogPath);
 		ArrayList<String> arrayOfSTIGS = enumerate(catalogLocation);
+		/* Used for debugging issues with enumerating files
 		for (String STIGS : arrayOfSTIGS)
 		{
 			System.out.println(STIGS);
 		}
+		*/
 		return arrayOfSTIGS;
 	}
 	
