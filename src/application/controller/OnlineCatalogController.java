@@ -14,6 +14,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Controller for OnlineCatalog Class. Maintains Online Catalog Scene, 
+ * including file lists and buttons to select and download files.
+ * @author Hunter Drummond
+ */
 public class OnlineCatalogController {
 
     @FXML
@@ -33,10 +38,19 @@ public class OnlineCatalogController {
     
     private OnlineCatalog oc = new OnlineCatalog();
 
+    /**
+     * Loads the Online Catalog list with the full listing of 
+     * available STIG files to download.
+     * @throws IOException
+     */
     public void initialize() throws IOException {
 		oc.loadOnlineCatalog(OnlineCatalogList);
 	}
     
+    /**
+     * Maintains button functionality for traveling back to the Main Menu.
+     * @throws IOException
+     */
     @FXML
     void GoToMainMenu(ActionEvent event) throws IOException {
     	// Load the Main Menu fxml file
@@ -51,22 +65,41 @@ public class OnlineCatalogController {
 		window.show();
     }
 
+    /**
+     * Maintains button functionality for removing an item from the 
+     * "Files to be downloaded" list.
+     * @throws IOException
+     */
     @FXML
-    void RemoveFromDownloadList(ActionEvent event) {
+    void RemoveFromDownloadList() {
     	if (DownloadList.getSelectionModel().getSelectedItem() != null) 
     		DownloadList.getItems().remove( DownloadList.getSelectionModel().getSelectedItem() );
     }
 
+    /**
+     * Maintains button functionality for adding an item to the 
+     * "Files to be downloaded" list.
+     * @throws IOException
+     */
     @FXML
-    void AddToDownloadList(ActionEvent event) {
+    void AddToDownloadList() {
     	oc.queueFiles(OnlineCatalogList, DownloadList);
     }
 
+    /**
+     * Maintains button functionality for downloading the group of selected files 
+     * from the "Files to be downloaded" list.
+     * @throws IOException
+     */
     @FXML
-    void Download(ActionEvent event) {
+    void Download() {
     	oc.downloadFiles(DownloadList);
     }
 
+    /**
+     * Maintains button functionality traveling to the Local Catalog screen.
+     * @throws IOException
+     */
     @FXML
     void GoToLocalCatalog(ActionEvent event) throws IOException {
     	// Load the Local Catalog fxml file
