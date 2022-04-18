@@ -48,7 +48,8 @@ public class OnlineCatalogController {
 	}
     
     /**
-     * Maintains button functionality for traveling back to the Main Menu.
+     * Maintains button functionality for traveling back to the Main Menu screen.
+     * @param event takes in the event when the "Main Menu" button is pressed.
      * @throws IOException
      */
     @FXML
@@ -98,6 +99,7 @@ public class OnlineCatalogController {
 
     /**
      * Maintains button functionality traveling to the Local Catalog screen.
+     * @param event takes in the event when the "Local Catalog" button is pressed.
      * @throws IOException
      */
     @FXML
