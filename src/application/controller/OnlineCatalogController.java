@@ -9,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -26,9 +25,6 @@ public class OnlineCatalogController {
 
     @FXML
     private ListView<String> OnlineCatalogList;
-
-    @FXML
-    private ProgressIndicator DownloadProgressBar;
 
     @FXML
     private TextArea DownloadStatusTextArea;
@@ -90,11 +86,27 @@ public class OnlineCatalogController {
     /**
      * Maintains button functionality for downloading the group of selected files 
      * from the "Files to be downloaded" list.
-     * @throws IOException
      */
     @FXML
     void Download() {
-    	oc.downloadFiles(DownloadList);
+    	// Check to see if there are files to be downloaded
+    	if(DownloadList.getItems().size() == 0) {
+    		DownloadStatusTextArea.setText("The download list is empty, no files were downloaded.");
+    		return;
+    	}
+    	
+    	// Try to download the files specified in the DownloadList
+    	try {
+    		oc.downloadFiles(DownloadList);
+    		DownloadStatusTextArea.setText("Successfully downloaded the following files: " + DownloadList.getItems().toString().replaceAll("[\\[\\]]", ""));
+    		
+    		// Clearing the DownloadList after files finish downloading.
+    		DownloadList.getItems().removeAll();
+    		DownloadList.getItems().clear();
+    	} catch (Exception e) {
+    		DownloadStatusTextArea.setText("There was an issue downloading one of the requested files.");
+    		e.printStackTrace();
+    	}
     }
 
     /**

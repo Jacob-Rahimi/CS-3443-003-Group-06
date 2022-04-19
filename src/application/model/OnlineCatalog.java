@@ -81,42 +81,36 @@ public class OnlineCatalog {
 	 * Used with the "Download" button
 	 * Clears the "Files to be Downloaded" list once downloading finishes.
 	 * @param filestbd Passes ListView Object to create XML links from.
+	 * @throws IOException 
 	 */
-	public void downloadFiles(ListView<String> filestbd) {
-		try {
-			int size = filestbd.getItems().size();
-			
-			org.jsoup.nodes.Document doc;
-			Elements links;
-			String s, s2;
-			int begin, end;
-			// Stores XML webpage links from each webpage and downloads each specified file.
-			for (int i = 0; i < size; i++) {
-				s = "https://www.stigviewer.com/stig/" + filestbd.getItems().get(i); // Appends each webpage link to be accessed
-				doc = Jsoup.connect(s).get(); // Stores each page's HTML text  
-				links = doc.select("a#xml"); // Targets XML link on each page
-				s2 = links.get(0).toString();
-				begin = s2.indexOf("/stig/") + 6;
-				end = s2.indexOf("\">");
-				XMLFileList.add("https://www.stigviewer.com/stig/" + s2.substring(begin, end)); // Creates and stores each full XML link
-				doc = Jsoup.connect(XMLFileList.get(i)).get();
-				File file = new File(LocalCatalog.catalogPath + "\\" + filestbd.getItems().get(i) + ".xml");
+	public void downloadFiles(ListView<String> filestbd) throws IOException {
+		int size = filestbd.getItems().size();
+		
+		org.jsoup.nodes.Document doc;
+		Elements links;
+		String s, s2;
+		int begin, end;
+		// Stores XML webpage links from each webpage and downloads each specified file.
+		for (int i = 0; i < size; i++) {
+			s = "https://www.stigviewer.com/stig/" + filestbd.getItems().get(i); // Appends each webpage link to be accessed
+			doc = Jsoup.connect(s).get(); // Stores each page's HTML text  
+			links = doc.select("a#xml"); // Targets XML link on each page
+			s2 = links.get(0).toString();
+			begin = s2.indexOf("/stig/") + 6;
+			end = s2.indexOf("\">");
+			XMLFileList.add("https://www.stigviewer.com/stig/" + s2.substring(begin, end)); // Creates and stores each full XML link
+			doc = Jsoup.connect(XMLFileList.get(i)).get();
+			File file = new File(LocalCatalog.catalogPath + "\\" + filestbd.getItems().get(i) + ".xml");
 				
-				// Downloads XML file
-				FileWriter fw = new FileWriter(file);
-				PrintWriter pw = new PrintWriter(fw);
-				doc.outputSettings().charset("ISO-8859-1");
-				pw.println(doc);
-				pw.close();
-			}
-			// Clearing "Files to be Downloaded" list after files finish downloading.
-			XMLFileList.clear();
-			filestbd.getItems().removeAll();
-			filestbd.getItems().clear();
+			// Downloads XML file
+			FileWriter fw = new FileWriter(file);
+			PrintWriter pw = new PrintWriter(fw);
+			doc.outputSettings().charset("ISO-8859-1");
+			pw.println(doc);
+			pw.close();
 		}
-		catch (Exception e) {
-			System.out.println(e);
-		}		
+		// Clearing "Files to be Downloaded" list after files finish downloading.
+		XMLFileList.clear();
 	}
 
 	/**
