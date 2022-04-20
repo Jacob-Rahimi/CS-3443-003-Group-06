@@ -7,7 +7,12 @@ Our team here at Command Cyber has developed OpenSTIG, which is a tool designed 
 ## Installation 
 [comment]: <> (Add steps for installation and common troubleshooting steps if necessary)
 Note: These instructions are assuming that you are using Eclipse and GitHub Desktop.<br>
-1. Clone the github...
+1. Clone the github (https://github.com/Jikkou9/CS-3443-003-Group-06) by either using Git Desktop (CTRL + SHIFT + O) or click on code and in the drop down menu click on download zip and specify the local path you want to store it as.
+2. Import the copy to eclipse by clicking file > import > general > projects from folder or archive > directory or archive wherever your folder is and click finish.
+3. Right click on the file and look at the end of the drop down and click on properties.
+4. Click on the java compiler and check "enable project specific settings".
+5. Go to the drop down menu to the right and make sure the jre or jdk is 1.8
+6. Apply > Apply and Close.
 ## Known Bugs
 [comment]: <> (List any known bugs by the deadline of the project)
 * <b>Main Menu Size Error:</b><br>
