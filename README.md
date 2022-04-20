@@ -5,7 +5,7 @@ Our team here at Command Cyber has developed OpenSTIG, which is a tool designed 
 * Example Package - Already Installed
   * Reason why the package was used
 * <b>jsoup</b> - Java Library for HTML Parsing.
-<ol>jsoup is an Open Source Java library. In this project, it is used to efficiently parse the HTML required for grabbing and building the STIG XML files that are to be downloaded.</ol>
+  * jsoup is an Open Source Java library. In this project, it is used to efficiently parse the HTML required for grabbing and building the STIG XML files that are to be downloaded.
 ## Installation 
 [comment]: <> (Add steps for installation and common troubleshooting steps if necessary)
 Note: These instructions are assuming that you are using Eclipse and GitHub Desktop.<br>
