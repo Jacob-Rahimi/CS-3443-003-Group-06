@@ -12,7 +12,16 @@ Note: These instructions are assuming that you are using Eclipse and GitHub Desk
 1. Clone the github...
 ## Known Bugs
 [comment]: <> (List any known bugs by the deadline of the project)
-* Example
+* <b>Main Menu Size Error:</b><br>
+  *When switching from local/online catalouges, the size of the main menu screen can become warped. To recreate:*
+    * Go to local catalouge. View a catalouge. Switch to online catalouge. Go to main menu.<br><br>
+    <b>Possible fixes:</b>
+    * Setting a minimum/maximum size limit to the stage at the start using primaryStage.setMinHeight(), primaryStage.setMinWidth(), primaryStage.setMaxHeight(), and primaryStage.setMaxWidth() functions, and then passing these settings to other controllers.
+    * Going into the fxml and changing the Min/Max height/width through the Border Pane Layout options, and then passing these settings through to other controllers.
+* <b>Certain filters do not work when accessing files downloaded from the online catalouge.</b><br>
+  *When attempting to filter for a file downloaded from the online catalouge, certain filter fields like "fixText" yield no results even for filter type of "Contains" for searches that theoretically should provide results. To recreate:*<br>
+    * Go to online catalogue. Download "zos_roscoeacf.xml" or "zos_roscoeacf2.xml". Select Filter field "fixText" and filter text with any possible string or character. Select "Contains". Search with this filter.<br><br>
+  
 ## Authors
 * Ismail Celik
 * Brandon Chung
