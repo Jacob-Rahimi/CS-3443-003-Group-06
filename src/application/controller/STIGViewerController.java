@@ -42,7 +42,7 @@ public class STIGViewerController {
 	/**
 	 * referenceSTIG is a STIGDocument that is generated from the XML file used to initialize the STIGViewer view
 	 */
-	STIGDocument referenceSTIG;
+	private STIGDocument referenceSTIG;
 	
 	@FXML
     private AnchorPane mainPane;

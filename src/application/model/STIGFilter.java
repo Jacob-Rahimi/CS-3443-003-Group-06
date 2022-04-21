@@ -10,10 +10,10 @@ import java.util.regex.Pattern;
  * @author Jacob Rahimi
  */
 public class STIGFilter {
-	public String field;
-	public String type;
-	public String text;
-	public Pattern pattern;
+	private String field;
+	private String type;
+	private String text;
+	private Pattern pattern;
 	
 	/**
 	 * This constructor assigns the parameter values to the object's corresponding variables as well

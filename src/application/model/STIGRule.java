@@ -21,19 +21,19 @@ import org.xml.sax.SAXException;
  */
 public class STIGRule {
 	// Header Information
-	public String vulID;		// Also known as Group ID
-	public String subVulID;		// Also known as Rule ID
-	public String stigID;		
-	public String severityCat;	// Severity Category {CAT I, CAT II, CAT III}
-	public ArrayList<String> legacyIDs = new ArrayList<String>();
+	private String vulID;		// Also known as Group ID
+	private String subVulID;		// Also known as Rule ID
+	private String stigID;		
+	private String severityCat;	// Severity Category {CAT I, CAT II, CAT III}
+	private ArrayList<String> legacyIDs = new ArrayList<String>();
 	// Main Content
-	public String groupTitle;	// Also known as rule name
-	public String ruleTitle;
-	public String ruleDiscussion;
-	public String checkText;
-	public String fixText;
+	private String groupTitle;	// Also known as rule name
+	private String ruleTitle;
+	private String ruleDiscussion;
+	private String checkText;
+	private String fixText;
 	// References
-	public String CCI;
+	private String CCI;
 
 	/**
 	 * This constructor assigns the object's variables based on the provided groupNode argument

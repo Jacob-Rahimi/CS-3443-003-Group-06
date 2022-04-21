@@ -20,6 +20,11 @@ import javafx.stage.Stage;
  */
 public class OnlineCatalogController {
 
+	private OnlineCatalog oc = new OnlineCatalog();
+	
+	@FXML
+    private AnchorPane mainPane;
+	
     @FXML
     private ListView<String> DownloadList;
 
@@ -28,11 +33,6 @@ public class OnlineCatalogController {
 
     @FXML
     private TextArea DownloadStatusTextArea;
-
-    @FXML
-    private AnchorPane mainPane;
-    
-    private OnlineCatalog oc = new OnlineCatalog();
 
     /**
      * Loads the Online Catalog list with the full listing of 
