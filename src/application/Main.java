@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
 
@@ -27,6 +28,7 @@ public class Main extends Application {
 			AnchorPane root = FXMLLoader.load(url);
 			Scene scene = new Scene(root,600,400);
 			primaryStage.setScene(scene);
+			primaryStage.getIcons().add(new Image("data/Command-Cyber-Logo.png"));
 			primaryStage.setTitle("Main Menu");
 			primaryStage.setResizable(false);
 			primaryStage.show();
