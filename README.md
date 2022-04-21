@@ -21,9 +21,6 @@ Note: These instructions are assuming that you are using Eclipse and GitHub Desk
     <b>Possible fixes:</b>
     * Setting a minimum/maximum size limit to the stage at the start using primaryStage.setMinHeight(), primaryStage.setMinWidth(), primaryStage.setMaxHeight(), and primaryStage.setMaxWidth() functions, and then passing these settings to other controllers.
     * Going into the fxml and changing the Min/Max height/width through the Border Pane Layout options, and then passing these settings through to other controllers.
-* <b>Certain filters do not work when accessing files downloaded from the online catalouge.</b><br>
-  *When attempting to filter for a file downloaded from the online catalouge, certain filter fields like "fixText" yield no results even for filter type of "Contains" for searches that theoretically should provide results. To recreate:*<br>
-    * Go to online catalogue. Download "zos_roscoeacf.xml" or "zos_roscoeacf2.xml". Select Filter field "fixText" and filter text with any possible string or character. Select "Contains". Search with this filter.<br><br>
   
 ## Authors
 * Ismail Celik
