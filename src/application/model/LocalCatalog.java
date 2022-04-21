@@ -87,4 +87,29 @@ public class LocalCatalog {
     	}
 	}
 	
+	// Setters and getters for the appropriate variables.
+	public static ArrayList<String> getArrayOfSTIGS() {
+		return arrayOfSTIGS;
+	}
+
+	public static void setArrayOfSTIGS(ArrayList<String> arrayOfSTIGS) {
+		LocalCatalog.arrayOfSTIGS = arrayOfSTIGS;
+	}
+
+	public static String[] getFileList() {
+		return fileList;
+	}
+
+	public static void setFileList(String[] fileList) {
+		LocalCatalog.fileList = fileList;
+	}
+
+	public static String getCatalogPath() {
+		return catalogPath;
+	}
+
+	public static void setCatalogPath(String catalogPath) {
+		LocalCatalog.catalogPath = catalogPath;
+	}
+	
 }
