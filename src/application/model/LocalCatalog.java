@@ -13,7 +13,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 /**This class is in charge of the Local Catalog section of the STIG viewer. It allows the users to upload, delete and view STIGS .xml files that are on their local directory.
- * @author Brandon Chung, Leon Le
+ * @author Brandon Chung, Leon Le, Ismail Celik
  *
  */
 public class LocalCatalog {

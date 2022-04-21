@@ -32,7 +32,7 @@ import javafx.stage.Stage;
  * local catalog path, and open the GitHub page for more information about
  * the project.
  * 
- * @author Brandon Chung, Hunter Drummond, Leon Le, Jacob Rahimi 
+ * @author Brandon Chung, Hunter Drummond, Leon Le, Jacob Rahimi, Ismail Celik 
  */
 public class MainMenuController implements Initializable {
 	
