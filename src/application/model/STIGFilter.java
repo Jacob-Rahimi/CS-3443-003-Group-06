@@ -1,23 +1,17 @@
 package application.model;
 
-import java.util.regex.Pattern;
-
 /**
  * application.model.STIGFilter is the class to represent a filter 
- * that is to be applied to the list of STIG rules. It includes
- * a REGEX pattern generator based on the parameters provided
- * to the constructor method.
+ * that is to be applied to the list of STIG rules.
  * @author Jacob Rahimi
  */
 public class STIGFilter {
 	private String field;
 	private String type;
 	private String text;
-	private Pattern pattern;
 	
 	/**
-	 * This constructor assigns the parameter values to the object's corresponding variables as well
-	 * as generates a pattern based on the filterType and filterText parameters passed into it.
+	 * This constructor assigns the parameter values to the object's corresponding variables.
 	 * @param filterField - the filterField String to be copied to the object's field variable
 	 * @param filterType - the filterType String to be copied to the object's type variable
 	 * @param filterText - the filterText String to be copied to the object's text variable
@@ -26,10 +20,6 @@ public class STIGFilter {
 		this.field = filterField;
 		this.type = filterType;
 		this.text = filterText;
-		
-		// Generate the pattern based on if "Matches" or "Contains" was selected
-		if( filterType.equals("Matches") ) pattern = Pattern.compile("^" + filterText + "$", Pattern.CASE_INSENSITIVE);
-		else pattern = Pattern.compile(".*" + filterText + ".*", Pattern.CASE_INSENSITIVE);
 	}
 	
 	// Getter and Setters
@@ -75,19 +65,5 @@ public class STIGFilter {
 	 */
 	public void setText(String text) {
 		this.text = text;
-	}
-	/**
-	 * A getter method for the object's pattern variable
-	 * @return Returns the object's pattern variable
-	 */
-	public Pattern getPattern() {
-		return pattern;
-	}
-	/**
-	 * A setter method for the object's pattern variable
-	 * @param pattern - the Pattern to be used for the object's pattern variable
-	 */
-	public void setPattern(Pattern pattern) {
-		this.pattern = pattern;
 	}
 }

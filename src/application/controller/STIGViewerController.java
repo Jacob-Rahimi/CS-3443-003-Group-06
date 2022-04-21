@@ -185,7 +185,7 @@ public class STIGViewerController {
     @FXML
     void AddFilter() {
     	// Detect if there is a valid selected in the FilteredField and the FilterTextArea
-    	if(FilterField.getSelectionModel().getSelectedItem() != null && FilterTextField.getText() != null ) {
+    	if( !(FilterField.getSelectionModel().getSelectedItem().isEmpty()) && !(FilterTextField.getText().isEmpty()) ) {
     		STIGFilter filterRow = new STIGFilter(FilterField.getSelectionModel().getSelectedItem(), (MatchButton.isSelected() ? "Matches" : "Contains"), FilterTextField.getText());
     		
     		FilterFieldColumn.setCellValueFactory( new PropertyValueFactory<STIGFilter, String>("field") );
@@ -214,14 +214,11 @@ public class STIGViewerController {
     /**
      * Displays the STIGRule selected from the STIGRuleTable
      * @param event - the MouseEvent which is used to verify that the user double clicked on a row which changes the selected row
-     * @throws IOException throws an error if there was an issue collecting the CCI content
-     * @throws SAXException throws an error if there was an issue collecting the CCI content
-     * @throws ParserConfigurationException throws an error if there was an issue collecting the CCI content
      */
     @FXML
-    void displaySelectedRule(MouseEvent event) throws ParserConfigurationException, SAXException, IOException {
+    void displaySelectedRule(MouseEvent event) {
     	// Ensure that the table was double clicked to change the selected rule
-    	if( event.getClickCount() == 2 ) {
+    	if( event.getClickCount() == 2 && !STIGRuleTable.getSelectionModel().isEmpty() ) {
     		// Get selected STIGRule
     		STIGRule selectedRule = STIGRuleTable.getSelectionModel().getSelectedItem();
     		
@@ -254,7 +251,9 @@ public class STIGViewerController {
     		
     		Text legacyIDsHeader = new Text("\tLegacy IDs: ");
     		legacyIDsHeader.setStyle("-fx-font-weight: bold");
-    		Text legacyIDsContent = new Text(selectedRule.getLegacyIDs().toString().replaceAll("[\\[\\]]", "") + "\n");
+    		Text legacyIDsContent = new Text("N/A");
+    		if( !selectedRule.getLegacyIDs().isEmpty() )
+    			legacyIDsContent = new Text(selectedRule.getLegacyIDs().toString().replaceAll("[\\[\\]]", "") + "\n");
     		
     		// Generate the Content
     		// Group Title
@@ -285,7 +284,9 @@ public class STIGViewerController {
     		// CCI
     		Text CCIHeader = new Text("CCI: ");
     		CCIHeader.setStyle("-fx-font-weight: bold");
-    		Text CCIContent = new Text(selectedRule.getCCI() + ": " + selectedRule.getCCIContent() );
+    		Text CCIContent = new Text("N/A");
+    		if( selectedRule.getCCI() != null )
+    			CCIContent = new Text(selectedRule.getCCI() + ": " + selectedRule.getCCIContent() );
     		
     		STIGRuleHeader.getChildren().addAll(tempTitle, 
     											vulIDHeader, vulIDContent, ruleIDHeader, ruleIDContent, stigIDHeader, stigIDContent,
@@ -317,7 +318,7 @@ public class STIGViewerController {
     	updateFilteredSTIGRules();
     	
     	// Initialize choice box
-    	FilterField.getItems().addAll( "vulID", "subVulID", "stigID", "severityCat", "groupTitle", "ruleTitle", "ruleDiscussion", "fixText", "CCI");
+    	FilterField.getItems().addAll( "Vul ID (Group ID)", "subVul ID (Rule ID)", "STIG ID", "Severity Category", "Legacy IDs", "Group Title", "Rule Title", "Rule Discussion", "Check Text", "Fix Text", "CCI", "CCI Content");
     	FilterField.getSelectionModel().select(0);
     	
     }
@@ -335,42 +336,97 @@ public class STIGViewerController {
     		filteredSTIGRules = new ArrayList<STIGRule>();
     		for( STIGRule rule : referenceSTIG.getStigRuleArrayList() ) {
     			for( STIGFilter filter : FilterTable.getItems() ) {
-    				if(filter.getField().equals("vulID") && filter.getPattern().matcher(rule.getVulID()).matches() ) {
-    					filteredSTIGRules.add(rule);
-    					break;
+    				boolean ruleFilterMatch = false;
+    				switch (filter.getField()){
+    					case "Vul ID (Group ID)":
+    						if( (filter.getType().equals("Matches") && rule.getVulID().equals(filter.getText())) 
+    								|| (filter.getType().equals("Contains") && rule.getVulID().contains(filter.getText())) ) {
+    							filteredSTIGRules.add(rule);
+    							ruleFilterMatch = true;
+    						}
+    						break;
+    					case "subVul ID (Rule ID)":
+    						if( (filter.getType().equals("Matches") && rule.getSubVulID().equals(filter.getText())) 
+    								|| (filter.getType().equals("Contains") && rule.getSubVulID().contains(filter.getText())) ) {
+    							filteredSTIGRules.add(rule);
+    							ruleFilterMatch = true;
+    						}
+    						break;
+    					case "STIG ID":
+    						if( (filter.getType().equals("Matches") && rule.getStigID().equals(filter.getText())) 
+    								|| (filter.getType().equals("Contains") && rule.getStigID().contains(filter.getText())) ) {
+    							filteredSTIGRules.add(rule);
+    							ruleFilterMatch = true;
+    						}
+    						break;
+    					case "Severity Category":
+    						if( (filter.getType().equals("Matches") && rule.getSeverityCat().equals(filter.getText())) 
+    								|| (filter.getType().equals("Contains") && rule.getSeverityCat().contains(filter.getText())) ) {
+    							filteredSTIGRules.add(rule);
+    							ruleFilterMatch = true;
+    						}
+    						break;
+    					case "Legacy IDs":
+    						if( (filter.getType().equals("Matches") && rule.getLegacyIDs().toString().replaceAll("[\\[\\]]", "").equals(filter.getText())) 
+    								|| (filter.getType().equals("Contains") && rule.getLegacyIDs().contains(filter.getText())) ) {
+    							filteredSTIGRules.add(rule);
+    							ruleFilterMatch = true;
+    						}
+    						break;
+    					case "Group Title":
+    						if( (filter.getType().equals("Matches") && rule.getGroupTitle().equals(filter.getText())) 
+    								|| (filter.getType().equals("Contains") && rule.getGroupTitle().contains(filter.getText())) ) {
+    							filteredSTIGRules.add(rule);
+    							ruleFilterMatch = true;
+    						}
+    						break;
+    					case "Rule Title":
+    						if( (filter.getType().equals("Matches") && rule.getRuleTitle().equals(filter.getText())) 
+    								|| (filter.getType().equals("Contains") && rule.getRuleTitle().contains(filter.getText())) ) {
+    							filteredSTIGRules.add(rule);
+    							ruleFilterMatch = true;
+    						}
+    						break;
+    					case "Rule Discussion":
+    						if( (filter.getType().equals("Matches") && rule.getRuleDiscussion().equals(filter.getText())) 
+    								|| (filter.getType().equals("Contains") && rule.getRuleDiscussion().contains(filter.getText())) ) {
+    							filteredSTIGRules.add(rule);
+    							ruleFilterMatch = true;
+    						}
+    						break;
+    					case "Check Text":
+    						if( (filter.getType().equals("Matches") && rule.getCheckText().equals(filter.getText())) 
+    								|| (filter.getType().equals("Contains") && rule.getCheckText().contains(filter.getText())) ) {
+    							filteredSTIGRules.add(rule);
+    							ruleFilterMatch = true;
+    						}
+    						break;
+    					case "Fix Text":
+    						if( (filter.getType().equals("Matches") && rule.getFixText().equals(filter.getText())) 
+    								|| (filter.getType().equals("Contains") && rule.getFixText().contains(filter.getText())) ) {
+    							filteredSTIGRules.add(rule);
+    							ruleFilterMatch = true;
+    						}
+    						break;
+    					case "CCI":
+    						if( rule.getCCI() != null 
+    							&&  ( (filter.getType().equals("Matches") && rule.getCCI().equals(filter.getText())) 
+    								  || (filter.getType().equals("Contains") && rule.getCCI().contains(filter.getText()))) ) {
+    							filteredSTIGRules.add(rule);
+    							ruleFilterMatch = true;
+    						}
+    						break;
+    					case "CCI Content":
+    						if( (filter.getType().equals("Matches") && rule.getCCIContent().equals(filter.getText())) 
+        							|| (filter.getType().equals("Contains") && rule.getCCIContent().contains(filter.getText())) ) {
+        						filteredSTIGRules.add(rule);
+        						ruleFilterMatch = true;
+    						}
+    						break;
     				}
-    				else if(filter.getField().equals("subVulID") && filter.getPattern().matcher(rule.getSubVulID()).matches() ) {
-    					filteredSTIGRules.add(rule);
+    				// Skip other filters checks if the rule already matched to one filter
+    				if( ruleFilterMatch )
     					break;
-    				}
-    				else if(filter.getField().equals("stigID") && filter.getPattern().matcher(rule.getStigID()).matches() ) {
-    					filteredSTIGRules.add(rule);
-    					break;
-    				}
-    				else if(filter.getField().equals("severityCat") && filter.getPattern().matcher(rule.getSeverityCat()).matches() ) {
-    					filteredSTIGRules.add(rule);
-    					break;
-    				}
-    				else if(filter.getField().equals("groupTitle") && filter.getPattern().matcher(rule.getGroupTitle()).matches() ) {
-    					filteredSTIGRules.add(rule);
-    					break;
-    				}
-    				else if(filter.getField().equals("ruleTitle") && filter.getPattern().matcher(rule.getRuleTitle()).matches() ) {
-    					filteredSTIGRules.add(rule);
-    					break;
-    				}
-    				else if(filter.getField().equals("ruleDiscussion") && filter.getPattern().matcher(rule.getRuleDiscussion()).matches() ) {
-    					filteredSTIGRules.add(rule);
-    					break;
-    				}
-    				else if(filter.getField().equals("fixText") && filter.getPattern().matcher(rule.getFixText()).matches() ) {
-    					filteredSTIGRules.add(rule);
-    					break;
-    				}
-    				else if(filter.getField().equals("CCI") && filter.getPattern().matcher(rule.getCCI()).matches() ) {
-    					filteredSTIGRules.add(rule);
-    					break;
-    				}
     			}
     		}
     	}
