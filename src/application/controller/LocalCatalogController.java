@@ -24,7 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /** This class is the controller of the Local catalog. It controls all the buttons and the list views to allow the user to update, delete and view the STIGs.
- * @author Brandon Chung, Leon Le
+ * @author Brandon Chung, Leon Le, Ismail Celik
  *
  */
 public class LocalCatalogController implements Initializable{
