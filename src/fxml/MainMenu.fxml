@@ -31,7 +31,7 @@
                   <Font size="36.0" />
                </font>
             </Text>
-            <Text fx:id="ConnectionStatusLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Connection status to https://public.cyber.mil/stigs/">
+            <Text fx:id="ConnectionStatusLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Connection status to https://www.stigviewer.com/stigs">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin></Text>

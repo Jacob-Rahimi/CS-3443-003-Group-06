@@ -135,7 +135,7 @@ public class MainMenuController implements Initializable {
 				try {
 					ConnectionStatus.setText("Currently querrying the server");
 					StatusIcon.setFill(Color.WHITE);
-					URL url = new URL("https://public.cyber.mil/stigs/");
+					URL url = new URL("https://www.stigviewer.com/stigs");
 					HttpURLConnection huc = (HttpURLConnection) url.openConnection();
 					int responseCode = huc.getResponseCode();
 					
