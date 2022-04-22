@@ -40,9 +40,9 @@ public class LocalCatalogController implements Initializable{
      * This method allows you to go to the STIGView once you select a certain .xml file on the list view and click on the view button.
      * It throws an exception if there is an issue loading a file in.
      * @param event , This event is from clicking on the button to go to switch the view to the STIG viewer.
-     * @throws IOException , when there is an issue loading the STIG file.
-     * @throws ParserConfigurationException, when there is an issue with configuration.
-     * @throws SAXException, when there is an issue with the XML parser or the application.
+     * @throws IOException  when there is an issue loading the STIG file.
+     * @throws ParserConfigurationException  when there is an issue with configuration.
+     * @throws SAXException  when there is an issue with the XML parser or the application.
      */
     @FXML
     void GoToSTIGViewer(ActionEvent event) throws IOException, ParserConfigurationException, SAXException {
@@ -88,7 +88,6 @@ public class LocalCatalogController implements Initializable{
     
     /**
      * This method uploads the STIG file selected by the user and updates the arraylist and listview to add the xml file.
-     * @param event takes in the event when the upload button is pressed.
      * @throws IOException throws an exception if there is an issue loading in the STIG.
      */
     @FXML
@@ -99,7 +98,6 @@ public class LocalCatalogController implements Initializable{
     
     /**
      * This method deletes the STIG file that is highlighted on the list view and calls upon the uploadSTIGCatalog to update the listView and arraylist.
-     * @param event takes in the event when the delete button is pressed.
      */
     @FXML
     public void DeleteSTIG() {

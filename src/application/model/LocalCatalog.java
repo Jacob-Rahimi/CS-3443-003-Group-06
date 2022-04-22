@@ -67,8 +67,8 @@ public class LocalCatalog {
 	
 	// Lets the user upload an .xml file from their local directory and checks if it was selected, if not then it outputs "ERROR: no file was selected".
 	/**
-	 * @param listView, takes in a list as a paramenter to update it.
-	 * @throws IOException, throws an exception if there is an error taking in the file.
+	 * @param listView takes in a list as a paramenter to update it.
+	 * @throws IOException when there is an error taking in the file.
 	 */
 	public static void uploadXML (ListView<String> listView) throws IOException {
 		FileChooser fc = new FileChooser();

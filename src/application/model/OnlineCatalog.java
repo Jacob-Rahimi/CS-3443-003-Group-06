@@ -29,7 +29,7 @@ public class OnlineCatalog {
 	 * Called from initialize method.
 	 * @param onlineCatalogList Passes the ListView object to display 
 	 * all STIGs.
-	 * @throws IOException
+	 * @throws IOException when there is an error reading the STIG list
 	 */
 	public void loadOnlineCatalog(ListView<String> onlineCatalogList) throws IOException {
 		try {
@@ -67,11 +67,10 @@ public class OnlineCatalog {
 	/**
 	 * Adds the specified files from "Online Catalog" List to 
 	 * "Files to be Downloaded" list.
-	 * Used with the ">>>" button
-	 * @param onlineCatalogList, filestbd Passes both ListView objects
-	 * to pass file names.
+	 * Used with the right arrow button
+	 * @param filestbd the list of files to be downloaded
 	 */
-	public void queueFiles(ListView<String> onlineCatalogList, ListView<String> filestbd) {
+	public void queueFiles( ListView<String> filestbd) {
 		filestbd.getItems().add(selectedFile);	// Adds file name to list of "Files to be Downloaded"			
 	}
 	
@@ -81,7 +80,7 @@ public class OnlineCatalog {
 	 * Used with the "Download" button
 	 * Clears the "Files to be Downloaded" list once downloading finishes.
 	 * @param filestbd Passes ListView Object to create XML links from.
-	 * @throws IOException 
+	 * @throws IOException when there is an issue with downloading the file
 	 */
 	public void downloadFiles(ListView<String> filestbd) throws IOException {
 		int size = filestbd.getItems().size();
@@ -123,7 +122,7 @@ public class OnlineCatalog {
 
 	/**
 	 * Sets the selected file name.
-	 * @param selectedFile
+	 * @param selectedFile the string to be used to set the objects' selected file
 	 */
 	public void setX(String selectedFile) {
 		this.selectedFile = selectedFile;
@@ -141,7 +140,7 @@ public class OnlineCatalog {
 	/**
 	 * Sets the list of files names to be displayed in the Online 
 	 * Catalog List.
-	 * @param namesList
+	 * @param namesList the string list to be used to set the objects' namesList
 	 */
 	public void setLeftList(List<String> namesList) {
 		this.namesList = namesList;
@@ -157,7 +156,7 @@ public class OnlineCatalog {
 
 	/**
 	 * Sets the list of individual STIG webpage links.
-	 * @param pageLinksList
+	 * @param pageLinksList the string list to be used to set the objects' pageLinksList
 	 */
 	public void setPageLinksList(List<String> pageLinksList) {
 		this.pageLinksList = pageLinksList;
@@ -173,9 +172,9 @@ public class OnlineCatalog {
 
 	/**
 	 * Sets the list of individual XML file links.
-	 * @param XMLFileList
+	 * @param XMLFileList the string list to be used to set the objects' XMLFileList
 	 */
-	public void setXMLFileList(List<String> xMLFileList) {
-		XMLFileList = xMLFileList;
+	public void setXMLFileList(List<String> XMLFileList) {
+		this.XMLFileList = XMLFileList;
 	}
 }

@@ -23,7 +23,7 @@ public class STIGDocument {
 	
 	/**
 	 * This constructor assigns the object's variables based on the provided fileName argument
-	 * @param stigFileName - the file of the XML STIG file that will be read from to assign the object's variables
+	 * @param stigFile - the file of the XML STIG file that will be read from to assign the object's variables
 	 * @throws ParserConfigurationException throws an error if there was an error parsing the file
 	 * @throws IOException throws an error if there was an issue reading the file
 	 * @throws SAXException throws an error if there was a SAX error or warning

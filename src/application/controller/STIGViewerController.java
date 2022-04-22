@@ -305,7 +305,7 @@ public class STIGViewerController {
     
     /**
      * This method initializes the STIGViewer Controller by loading the referenceSTIG, displaying the STIGRules, and adding the FilterField items.
-     * @param stigFileName - the file to be read to initialize the referenceSTIG
+     * @param stigFile - the file to be read to initialize the referenceSTIG
      * @throws ParserConfigurationException - errors when there was issue in parsing the file
      * @throws SAXException - errors when there was an issue reading/parsing the file
      * @throws IOException - errors when there was an issue reading form the file

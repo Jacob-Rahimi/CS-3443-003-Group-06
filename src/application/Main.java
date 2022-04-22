@@ -39,7 +39,7 @@ public class Main extends Application {
 	
 	/**
 	 * This is the main method to launch the java application.
-	 * @param args
+	 * @param args parameters to be sent to launching the application
 	 */
 	public static void main(String[] args) {
 		launch(args);

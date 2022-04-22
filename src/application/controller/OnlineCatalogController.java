@@ -37,7 +37,7 @@ public class OnlineCatalogController {
     /**
      * Loads the Online Catalog list with the full listing of 
      * available STIG files to download.
-     * @throws IOException
+     * @throws IOException extends the IOException from Online Catalog's loadOnlineCatalog.
      */
     public void initialize() throws IOException {
 		oc.loadOnlineCatalog(OnlineCatalogList);
@@ -46,7 +46,7 @@ public class OnlineCatalogController {
     /**
      * Maintains button functionality for traveling back to the Main Menu screen.
      * @param event takes in the event when the "Main Menu" button is pressed.
-     * @throws IOException
+     * @throws IOException when there is an issue loading the FXML file
      */
     @FXML
     void GoToMainMenu(ActionEvent event) throws IOException {
@@ -65,7 +65,6 @@ public class OnlineCatalogController {
     /**
      * Maintains button functionality for removing an item from the 
      * "Files to be downloaded" list.
-     * @throws IOException
      */
     @FXML
     void RemoveFromDownloadList() {
@@ -76,11 +75,10 @@ public class OnlineCatalogController {
     /**
      * Maintains button functionality for adding an item to the 
      * "Files to be downloaded" list.
-     * @throws IOException
      */
     @FXML
     void AddToDownloadList() {
-    	oc.queueFiles(OnlineCatalogList, DownloadList);
+    	oc.queueFiles( DownloadList );
     }
 
     /**
@@ -112,7 +110,7 @@ public class OnlineCatalogController {
     /**
      * Maintains button functionality traveling to the Local Catalog screen.
      * @param event takes in the event when the "Local Catalog" button is pressed.
-     * @throws IOException
+     * @throws IOException when there was an issue loading the FXML file
      */
     @FXML
     void GoToLocalCatalog(ActionEvent event) throws IOException {
