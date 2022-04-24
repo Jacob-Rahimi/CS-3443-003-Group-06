@@ -2,6 +2,7 @@
 Our team here at Command Cyber has developed OpenSTIG, which is a tool designed around the Defense Information Systems Agency’s (DISA) Security Technical Implementation Guides (STIGs) that allows users to view, filter, and download STIGs. The main improvements that our application provides compared to the tools that DISA offers is that our application allows STIGs to be downloaded from the application and it is open source to allow users to modify this application to add additional features or incorporate it into their own application.
 ## Requirements
 [comment]: <> (List any of the external requirements, if it needs to be installed, and why they are used)
+* <b>Java 8</b> - Java Version for the Project.
 * <b>jsoup</b> - Java Library for HTML Parsing.
   * jsoup is an Open Source Java library. In this project, it is used to efficiently parse the HTML required for grabbing and building the STIG XML files that are to be downloaded.
 ## Installation 
